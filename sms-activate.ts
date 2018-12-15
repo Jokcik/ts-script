@@ -34,3 +34,57 @@ export class SmsActivate {
   }
 }
 
+const SIMSms = require('node-simsms-api');
+// const simsms = new SimSms('API_KEY');
+
+export class SimSms {
+  private API_KEY = "SMRrTIpHctZ9Y3wjEJPbo6LNHacn4f";
+  private sms = new SIMSms(this.API_KEY);
+
+  constructor() {
+  }
+
+  public getBalance() {
+    return this.sms.get_balance();
+  }
+
+  public getOtherNumber() {
+    return this.sms.get_number('Любой другой');
+  }
+
+  public async getCode(id: string) {
+    try {
+      const timeout = setTimeout(() => this.setStatus(id, -1), 1000 * 60 * 2);
+      let result;
+
+      while (true) {
+        try {
+          result = await this.sms.get_sms(id, 'Любой другой');
+          break;
+        } catch (e) {
+          console.log(e.message);
+        }
+        await sleep(1000);
+
+      }
+      clearTimeout(timeout);
+
+      console.log(result);
+      return result;
+    } catch (e) {
+      throw new Error('getCode error' + e.message);
+    }
+  }
+
+  public setStatus(id: string, status: number) {
+    if (status === -1) {
+      return this.sms.denial();
+    }
+
+    // return this.sms.setStatus(id, status);
+  }
+}
+
+function sleep(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}

@@ -7,7 +7,7 @@ export class DeliveryNewYear {
 
   public sendCode(phone: string) {
     const params = new URLSearchParams();
-    params.append('phone', phone);
+    params.append('phone', phone[0] === '7' ? phone : '7' + phone);
 
     try {
       return fetch(`${this.baseurl}${this.codeUrl}`, { method: 'POST', body: params })
@@ -25,7 +25,7 @@ export class DeliveryNewYear {
     console.log(opt, request_id, cookie);
 
     try {
-      return fetch(`${this.baseurl}${this.loginUrl}`, { method: 'POST', body: params, headers: { cookie, 'x-csrf-token': 'veeS_bf6J1um9SAHQmjv3iPT6B1KhvRtCDJGZb6U4Tc' } });
+      return fetch(`${this.baseurl}${this.loginUrl}`, { method: 'POST', body: params, headers: { cookie } });
     } catch (e) {
       console.log('login ERROR', e);
       throw new Error('login ERROR' + JSON.stringify(e));

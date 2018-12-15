@@ -1,4 +1,4 @@
-import {SmsActivate} from "./sms-activate";
+import {SimSms, SmsActivate} from "./sms-activate";
 import {DeliveryNewYear} from "./delivery-new-year";
 import {URLSearchParams} from 'url';
 
@@ -25,12 +25,18 @@ function mergeCookie(cookie1, cookie2) {
 }
 
 
-const func = (async () => {
+const func = (async (flag) => {
   try {
-    const sms = new SmsActivate();
+    let sms;
+    if (flag) {
+      sms = new SmsActivate();
+    } else {
+      sms = new SimSms();
+    }
     const delivery = new DeliveryNewYear();
 
     const balance = await sms.getBalance();
+    console.log('balance');
     if (balance <= 1) {
       await fetch(`http://crierbot.appspot.com/${token}/send?message=${message}`);
       process.exit();
@@ -106,7 +112,8 @@ const func = (async () => {
 
 async function start() {
   for (let i = 0; i < 20000; ++i) {
-    await func();
+    await func(0);
+    await func(1);
   }
 
   process.exit();

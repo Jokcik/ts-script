@@ -4,6 +4,7 @@
   "dependencies": {
     "@types/node-fetch": "^2.1.4",
     "node-fetch": "^2.3.0",
+    "node-simsms-api": "^0.1.10",
     "node-sms-activate-api": "^0.1.7"
   }
 }
