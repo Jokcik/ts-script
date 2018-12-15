@@ -31,7 +31,8 @@ const func = (async () => {
 
     const balance = await sms.getBalance();
     if (balance <= 1) {
-      return (await fetch(`http://crierbot.appspot.com/${token}/send?message=${message}`));
+      await fetch(`http://crierbot.appspot.com/${token}/send?message=${message}`);
+      process.exit();
     }
 
     const res = await fetch('http://belgorod.delivery-club.ru/kopilka/?utm_source=advcake&utm_campaign=admitad&utm_content=11232&utm_medium=cpa&advcake_params=dcfc744c446a6d96d23fb9a83df0fe18');
@@ -102,7 +103,7 @@ const func = (async () => {
 });
 
 async function start() {
-  for (let i = 0; i < 2000; ++i) {
+  for (let i = 0; i < 20000; ++i) {
     await func();
   }
 
