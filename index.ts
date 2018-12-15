@@ -6,6 +6,7 @@ import {URLSearchParams} from 'url';
 (<any>global).URLSearchParams = URLSearchParams;
 
 const token = 'qCsQDwFmi8EzjG2ZBTL0K1MRUkHOygNX';
+const token2 = 'DSNaUpz2wisZ1bA3to4xKcPGO0uCqdYy';
 const message = encodeURI('У вас недостатно денег на балансе');
 const email = 'jokcik@gmail.com';
 
@@ -88,6 +89,7 @@ const func = (async () => {
 
     console.log(resMessage);
     (await fetch(`http://crierbot.appspot.com/${token}/send?message=${encodeURI(resMessage)}`));
+    (await fetch(`http://crierbot.appspot.com/${token2}/send?message=${encodeURI(resMessage)}`));
 
     return;
     // process.exit();
