@@ -1,4 +1,4 @@
-import {SimSms, SmsActivate} from "./sms-activate";
+import {SimSms, sleep, SmsActivate} from "./sms-activate";
 import {DeliveryNewYear} from "./delivery-new-year";
 import {URLSearchParams} from 'url';
 
@@ -53,6 +53,7 @@ const func = (async (flag) => {
       number = res.number;
     } catch (e) {
       console.log(new Date() + ' нет номера ' + e.message);
+      await sleep(2000);
       return;
     }
     console.log('sms.getOtherNumber', id, number);
