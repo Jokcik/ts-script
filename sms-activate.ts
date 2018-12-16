@@ -54,7 +54,7 @@ export class SimSms {
 
   public async getCode(id: string) {
     try {
-      const timeout = setTimeout(() => this.setStatus(id, -1), 1000 * 60 * 2);
+      const timeout = setTimeout(() => this.setStatus(id, -1), 1000 * 60 * 1);
       let result;
 
       while (true) {
