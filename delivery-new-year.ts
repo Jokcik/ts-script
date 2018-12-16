@@ -6,6 +6,7 @@ export class DeliveryNewYear {
   private kopilkaUrl: string = 'kopilka/';
 
   public sendCode(phone: string) {
+
     const params = new URLSearchParams();
     params.append('phone', phone[0] === '7' ? phone : '7' + phone);
 
@@ -15,6 +16,20 @@ export class DeliveryNewYear {
       console.log('sendCode ERROR', e);
       throw new Error('sendCode ERROR' + JSON.stringify(e));
     }
+  }
+
+  public async loginEmail(login: string, password: string) {
+    // const formData = {
+    //   "c_l": login,
+    //   "c_p": password
+    // }
+
+    const params = new URLSearchParams();
+    params.append('c_l', login);
+    params.append('c_p', password);
+    // let res = await fetch("https://spb.delivery-club.ru/ajax/login/",
+    //   {method: "POST", headers, body: formData});
+    return await fetch("https://spb.delivery-club.ru/ajax/login/", {method: 'POST', body: params});
   }
 
   public login(opt: string, request_id: string, cookie) {
@@ -37,6 +52,7 @@ export class DeliveryNewYear {
     params.append('email', email);
 
     try {
+      console.log(cookie);
       return fetch(`${this.baseurl}${this.kopilkaUrl}`, { method: 'POST', body: params, headers: { cookie } })
     } catch (e) {
       console.log('kopilka ERROR', e);

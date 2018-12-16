@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "dependencies": {
     "@types/node-fetch": "^2.1.4",
+    "bluebird": "^3.5.3",
+    "fs": "0.0.1-security",
     "node-fetch": "^2.3.0",
     "node-simsms-api": "^0.1.10",
-    "node-sms-activate-api": "^0.1.7"
+    "node-sms-activate-api": "^0.1.7",
+    "optimist": "^0.6.1"
   }
 }
