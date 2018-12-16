@@ -106,7 +106,15 @@ const func = (async (flag) => {
     return;
     // process.exit();
   } catch (e) {
-    await sms.setStatus(id, -1);
+    try {
+      await sms.setStatus(id, -1);
+    } catch (e) {
+      try {
+        await sms.setStatus(id, 6);
+      } catch (e) {
+      }
+    }
+
     console.log('error INDEX', e);
     return;
     // process.exit();
