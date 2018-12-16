@@ -27,8 +27,8 @@ function mergeCookie(cookie1, cookie2) {
 
 
 const func = (async (flag) => {
+  let sms, id;
   try {
-    let sms;
     if (flag) {
       sms = new SmsActivate();
     } else {
@@ -46,7 +46,7 @@ const func = (async (flag) => {
     const res = await fetch('http://belgorod.delivery-club.ru/kopilka/?utm_source=advcake&utm_campaign=admitad&utm_content=11232&utm_medium=cpa&advcake_params=dcfc744c446a6d96d23fb9a83df0fe18');
     let cookie = res.headers.get('set-cookie');
     const splits = cookie.split('; ');
-    let id, number;
+    let number;
     try {
       const res = await sms.getOtherNumber();
       id = res.id;
@@ -83,6 +83,7 @@ const func = (async (flag) => {
     const json = await reqLogin.json();
     if (json.payload.errors) {
       console.log('код неверный');
+      await sms.setStatus(id, 6);
       return;
     }
 
@@ -105,6 +106,7 @@ const func = (async (flag) => {
     return;
     // process.exit();
   } catch (e) {
+    await sms.setStatus(id, -1);
     console.log('error INDEX', e);
     return;
     // process.exit();
