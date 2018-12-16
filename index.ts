@@ -63,7 +63,7 @@ const func = (async (flag) => {
     const reqCode = await delivery.sendCode(number);
     const payload = (await reqCode.json()).payload;
     if (payload.errors) {
-      sms.setStatus(id, -1);
+      await sms.setStatus(id, -1);
       return console.log('error', JSON.stringify(payload));
     }
 
