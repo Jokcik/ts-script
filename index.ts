@@ -118,7 +118,7 @@ async function start() {
     // await func(0);
     await func(1);
 
-    process.exit();
+    // process.exit();
   }
 
   process.exit();
