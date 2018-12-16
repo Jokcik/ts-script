@@ -7,8 +7,9 @@ import {URLSearchParams} from 'url';
 
 const token = 'qCsQDwFmi8EzjG2ZBTL0K1MRUkHOygNX';
 const token2 = 'DSNaUpz2wisZ1bA3to4xKcPGO0uCqdYy';
-const message = encodeURI('У вас недостатно денег на балансе');
-const email = 'jokcik@gmail.com';
+const message = encodeURIComponent('У вас недостатно денег на балансе');
+const startEmail = 'jokcik';
+const endEmail = '@gmail.com';
 
 const readline = require('readline');
 const rl = readline.createInterface({
@@ -83,6 +84,7 @@ const func = (async (flag) => {
       return;
     }
 
+    const email = `${startEmail}+misha${Date.now()}${endEmail}`;
     const reqKopilka = await delivery.kopilka(email, cookie);
     const jsonRes = await reqKopilka.json();
     console.log(JSON.stringify(jsonRes));
@@ -91,11 +93,12 @@ const func = (async (flag) => {
 
     const delivery_code = payloadResult.gift.dc_code;
     const delivery_title = payloadResult.gift.title;
-    const resMessage = `${delivery_title}. Код: ${delivery_code}`;
+    console.log(email)
+    const resMessage = `${delivery_title}. Код: ${delivery_code}. Отправлен на email: ${email}`;
 
     console.log(resMessage);
-    (await fetch(`http://crierbot.appspot.com/${token}/send?message=${encodeURI(resMessage)}`));
-    (await fetch(`http://crierbot.appspot.com/${token2}/send?message=${encodeURI(resMessage)}`));
+    (await fetch(`http://crierbot.appspot.com/${token}/send?message=${encodeURIComponent(resMessage)}`));
+    (await fetch(`http://crierbot.appspot.com/${token2}/send?message=${encodeURIComponent(resMessage)}`));
 
     return;
     // process.exit();
@@ -112,8 +115,10 @@ const func = (async (flag) => {
 
 async function start() {
   for (let i = 0; i < 20000; ++i) {
-    await func(0);
+    // await func(0);
     await func(1);
+
+    process.exit();
   }
 
   process.exit();

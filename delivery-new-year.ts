@@ -22,7 +22,7 @@ export class DeliveryNewYear {
     params.append('otp', opt);
     params.append('request_id', request_id);
 
-    console.log(opt, request_id, cookie);
+    console.log('login', opt, request_id);
 
     try {
       return fetch(`${this.baseurl}${this.loginUrl}`, { method: 'POST', body: params, headers: { cookie } });
