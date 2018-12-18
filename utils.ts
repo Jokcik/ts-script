@@ -73,7 +73,7 @@ export class SmsSenderDelivery {
         number = res.number;
       } catch (e) {
         console.log(new Date() + ' нет номера ' + e.message);
-        await sleep(2000);
+        await sleep(flag ? 2000 : 10000);
         return;
       }
       console.log('sms.getOtherNumber', id, number);

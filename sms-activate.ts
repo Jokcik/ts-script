@@ -36,10 +36,13 @@ export class SmsActivate {
 
 const SIMSms = require('node-simsms-api');
 // const simsms = new SimSms('API_KEY');
+const serviceList = require('./node_modules/node-simsms-api/serviceList');
+serviceList['Delivery'] = 69;
 
 export class SimSms {
   private API_KEY = "SMRrTIpHctZ9Y3wjEJPbo6LNHacn4f";
   private sms = new SIMSms(this.API_KEY);
+  private service = 'Delivery';
 
   constructor() {
   }
@@ -49,7 +52,7 @@ export class SimSms {
   }
 
   public getOtherNumber() {
-    return this.sms.get_number('Любой другой');
+    return this.sms.get_number(this.service);
   }
 
   public async getCode(id: string) {
@@ -59,10 +62,14 @@ export class SimSms {
 
       while (true) {
         try {
-          result = await this.sms.get_sms(id, 'Любой другой');
+          result = await this.sms.get_sms(id, this.service);
           break;
         } catch (e) {
           console.log(e.message);
+          if (e.message !== 'get_sms error') {
+            console.log('Не пришла sms: ' + id);
+            return;
+          }
         }
         await sleep(1000);
 
