@@ -14,7 +14,7 @@ export class SmsActivate {
   }
 
   public getOtherNumber() {
-    return this.smsactivate.getNumber('ot');
+    return this.smsactivate.getNumber('dt');
   }
 
   public async getCode(id: string) {
