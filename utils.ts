@@ -5,7 +5,8 @@ import {SimSms, sleep, SmsActivate} from "./sms-activate";
 const token = 'qCsQDwFmi8EzjG2ZBTL0K1MRUkHOygNX';
 const token2 = 'DSNaUpz2wisZ1bA3to4xKcPGO0uCqdYy';
 const message = encodeURIComponent('У вас недостатно денег на балансе');
-const startEmail = 'jokcik';
+// const startEmail = 'jokcik';
+const startEmail = 'valimpetrov1993';
 const endEmail = '@gmail.com';
 
 function mergeCookie(cookie1, cookie2) {
