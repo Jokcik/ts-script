@@ -29,7 +29,9 @@ export async function sendKopilkaAnd(delivery: DeliveryNewYear, cookie: string, 
     await sms.setStatus(id, 6);
   }
 
-  if (!payloadResult.gift) { return; }
+  if (!payloadResult.gift) {
+    return;
+  }
 
   const delivery_code = payloadResult.gift.dc_code;
   const delivery_title = payloadResult.gift.title;
@@ -39,6 +41,7 @@ export async function sendKopilkaAnd(delivery: DeliveryNewYear, cookie: string, 
   console.log(resMessage);
   (await fetch(`http://crierbot.appspot.com/${token}/send?message=${encodeURIComponent(resMessage)}`));
   (await fetch(`http://crierbot.appspot.com/${token2}/send?message=${encodeURIComponent(resMessage)}`));
+
 
   return;
 }
