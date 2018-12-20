@@ -9,8 +9,8 @@ const fs = bluebird.promisifyAll(FS);
 const readline = require('readline');
 
 export class CheckCookie {
-  // private readFileName: string = 'cookie.txt';
-  private readFileName: string = 'cookie-fast.txt';
+  private readFileName: string = 'cookie.txt';
+  // private readFileName: string = 'cookie-fast.txt';
   private writeFileName: string = 'cook.txt';
   private fileHandle: string;
   private rd: Interface;
@@ -50,7 +50,7 @@ export class CheckCookie {
           await sendKopilkaAnd(delivery, cookies[i]);
         } catch (e) {
         }
-        await sleep(1000);
+        await sleep(20000);
       }
     });
 

@@ -30,7 +30,7 @@ export async function sendKopilkaAnd(delivery: DeliveryNewYear, cookie: string, 
   }
 
   if (!payloadResult.gift) {
-    if (payloadResult.errors[0].message.indexOf('Верификация номера телефона не пройдена') > 0) {
+    if (payloadResult.errors[0].message.indexOf('не пройдена') > 0) {
       await cookieService.write(cookie, -1);
     } else {
       await cookieService.write(cookie, 0);
