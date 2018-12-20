@@ -9,10 +9,20 @@ const fs = bluebird.promisifyAll(FS);
 const readline = require('readline');
 
 export class CheckCookie {
-  private readFileName: string = 'cookie.txt';
+  // private readFileName: string = 'cookie.txt';
+  private readFileName: string = 'cookie-fast.txt';
   private writeFileName: string = 'cook.txt';
   private fileHandle: string;
   private rd: Interface;
+
+  private fileHandleAccess: string;
+  private fileHandleInvalid: string;
+  private fileHandleError: string;
+
+  private cookieAccess: string = 'cookie/access.txt';
+  private cookieInvalid: string = 'cookie/invalid.txt';
+  private cookieError: string = 'cookie/error.txt';
+
 
   constructor() {
     this.rd = readline.createInterface({
@@ -25,6 +35,9 @@ export class CheckCookie {
 
   private async open() {
     this.fileHandle = await fs.openAsync(this.writeFileName, "a+");
+    this.fileHandleAccess = await fs.openAsync(this.cookieAccess, "a+");
+    this.fileHandleInvalid = await fs.openAsync(this.cookieInvalid, "a+");
+    this.fileHandleError = await fs.openAsync(this.cookieError, "a+");
   }
 
   public run() {
@@ -45,8 +58,25 @@ export class CheckCookie {
   }
 
   public async writeCookie(cookie: string) {
-    await fs.writeAsync(this.fileHandle, `${cookie}\n`, null, 'ascii');
     console.log('write', cookie);
     return;
   }
+
+  public async write(cookie: string, status: 0 | 1 | -1) {
+    switch (status) {
+      case -1:
+        await fs.writeAsync(this.fileHandleInvalid, `${cookie}\n`, null, 'ascii');
+        break;
+      case 0:
+        await fs.writeAsync(this.fileHandleError, `${cookie}\n`, null, 'ascii');
+        break;
+      case 1:
+        await fs.writeAsync(this.fileHandleAccess, `${cookie}\n`, null, 'ascii');
+        break;
+    }
+
+    return;
+  }
 }
+
+export const cookieService: CheckCookie = new CheckCookie();

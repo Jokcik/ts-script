@@ -1,5 +1,5 @@
 import {DeliveryNewYear} from "./delivery-new-year";
-import {CheckCookie} from "./check-cookie";
+import {CheckCookie, cookieService} from "./check-cookie";
 import {SimSms, sleep, SmsActivate} from "./sms-activate";
 
 const token = 'qCsQDwFmi8EzjG2ZBTL0K1MRUkHOygNX';
@@ -30,7 +30,15 @@ export async function sendKopilkaAnd(delivery: DeliveryNewYear, cookie: string, 
   }
 
   if (!payloadResult.gift) {
+    if (payloadResult.errors[0].message.indexOf('Верификация номера телефона не пройдена') > 0) {
+      await cookieService.write(cookie, -1);
+    } else {
+      await cookieService.write(cookie, 0);
+    }
+
     return;
+  } else {
+    await cookieService.write(cookie, 1);
   }
 
   const delivery_code = payloadResult.gift.dc_code;
