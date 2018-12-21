@@ -56,7 +56,7 @@ export async function sendKopilkaAnd(delivery: DeliveryNewYear, cookie: string, 
 
 
 export class SmsSenderDelivery {
-  private cookieService = new CheckCookie();
+  private cookieService = new CheckCookie(false);
 
   public async run(flag = 1) {
     let sms, id;

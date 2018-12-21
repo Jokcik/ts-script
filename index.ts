@@ -8,8 +8,9 @@ import {sleep} from "./sms-activate";
 (<any>global).URLSearchParams = URLSearchParams;
 
 const argv = opt
-  .usage('Usage: $0 --cookie [boolean] --service [smsactivate/simsms]')
+  .usage('Usage: $0 --cookie [boolean] --service [smsactivate/simsms] --fast [false/true]')
   .default('cookie', 'true')
+  .default('fast', 'false')
   .default('service', 'smsactivate')
   .demand(['cookie', 'service'])
   .argv;
@@ -17,9 +18,10 @@ const argv = opt
 (async () => {
   const isCookie = argv.cookie;
   const service = argv.service;
+  const fast: boolean = argv.fast === 'true';
 
   if (isCookie === 'true') {
-    const cookie = new CheckCookie();
+    const cookie = new CheckCookie(fast);
     cookie.run();
 
     return;
@@ -37,7 +39,7 @@ const argv = opt
 // (async () => {
 //
 //   let cookie = 'PHPSESSID=8ldfuutqvub0g9fnfkd3hmnrr0';
-//   const affraidId = '36648';
+//   const affraidId = '11470';
 //
 //   const params = new URLSearchParams();
 //   params.append('user_type', 'RegisteredWithoutAddress');
@@ -70,42 +72,58 @@ const argv = opt
 //   params.append('promo_code', 'testtest');
 //
 //   const promos = [
-//     "NY19K9UCTQR6L",
-//     // "NY19KZI9TPW25",
-//     // "NY19KIM4HXOU5",
-//     // "NY19K4L5FLP7U",
-//     // "NY19SEFLI0EZ3",
-//     // "NY19KUEJS590S",
-//     // "NY19S6IFUKJ6X",
-//     // "NY19KIY979SJH",
-//     // "NY19SX4ATF8BO",
-//     // "NY19K8PDJU96C",
-//     // "NY19KDI9B0FPX",
-//     // "NY19KZY2XER6J",
-//     // "NY19S1LDABLHU",
-//     // "NY19KBXN7AH1L",
-//     // "NY19SGR4WP5OF",
-//     // "NY19K89J2LUXR",
-//     // "NY19KVEBLJJ9B",
-//     // "NY19K7I1E5ECR",
-//     // "NY19K31GSH3FB",
-//     // "NY19SZDW84XX4",
-//     // "NY19S4T71NOPR",
-//     // "NY19S3KWPETI8",
-//     // "NY19KCXQIMNOT",
-//     // "NY19K7RMHQDD9",
-//     // "NY19K1CA3A6PX",
-//     // "NY19KZ1ORX0YM",
-//     // "NY19SSAFAPQ59",
-//     // "NY19K2U08B6C1",
-//     // "NY19KQYP26Q7L",
-//     // "NY19SBQMEP3J5",
-//     // "NY19SGE5LCGZY",
-//     // "NY19K6L5CRT6U",
-//     // "NY19KH6ZEL7BZ",
-//     // "NY19KD6QE8LFO",
-//
-//
+//     // "NY19K9B6EM6WK",
+//     "NY19KNCEYHV4W",
+//     // "NY19KTO3Y120O",
+//     // "NY19KYLQPA6HH",
+//     // "NY19K9Y9V92CV",
+//     // "NY19S3BLBT3A0",
+//     // "NY19K7URSIT2I",
+//     // "NY19KK56Y4TKQ",
+//     // "NY19KFN3TGRRM",
+//     // "NY19KAAADWPZ7",
+//     // "NY19K3VBN6K9T",
+//     // "NY19SQMVZGCC9",
+//     // "NY19S2X0TKM6M",
+//     // "NY19SYGPTBFKF",
+//     // "NY19KKWBED3SN",
+//     // "NY19KR5JK8LAP",
+//     // "NY19SMO1ZPIXJ",
+//     // "NY19SU2ZIU1HZ",
+//     // "NY19S276C9I8R",
+//     // "NY19S7OSBNS85",
+//     // "NY19SMWMBL9GV",
+//     // "NY19K20YHS8XZ",
+//     // "NY19SCLNHQGBX",
+//     // "NY19K2M7G2389",
+//     // "NY19SUVVCQ1B0",
+//     // "NY19KY7KLQY47",
+//     // "NY19K6V859V05",
+//     // "NY19SNNYN3CE6",
+//     // "NY19KNDLEFSZ9",
+//     // "NY19KGH8EBK9Q",
+//     // "NY19KNTY39SGB",
+//     // "NY19KWEFOD02O",
+//     // "NY19KQZWT39H7",
+//     // "NY19K4UFHKORS",
+//     // "NY19KHYIKJSJ0",
+//     // "NY19KNO19T69T",
+//     // "NY19KJR8F5GRE",
+//     // "NY19K0HM82TLM",
+//     // "NY19S7JHTKT9T",
+//     // "NY19K4QU7UHC5",
+//     // "NY19KQVVMFG3D",
+//     // "NY19KKWSQBYUP",
+//     // "NY19KTVCIH1JT",
+//     // "NY19K0MP0UEJW",
+//     // "NY19K3EV3EX2F",
+//     // "NY19SBZPGR2UD",
+//     // "NY19KZAOILV4E",
+//     // "NY19KCS03UFID",
+//     // "NY19KYXJQSZFZ",
+//     // "NY19KLPSXPTS6",
+//     // "NY19SSMG5V0HL",
+//     // "NY19KU02I51UQ",
 //   ];
 //
 //   for (let i = 0; i < promos.length; ++i) {

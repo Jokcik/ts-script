@@ -9,11 +9,13 @@ const fs = bluebird.promisifyAll(FS);
 const readline = require('readline');
 
 export class CheckCookie {
-  private readFileName: string = 'cookie.txt';
+  private readFileNameFast: string = 'cookie-fast.txt';
+  private readFileNameLong: string = 'cookie.txt';
   // private readFileName: string = 'cookie-fast.txt';
   private writeFileName: string = 'cook.txt';
   private fileHandle: string;
   private rd: Interface;
+  private fast: boolean;
 
   private fileHandleAccess: string;
   private fileHandleInvalid: string;
@@ -24,9 +26,10 @@ export class CheckCookie {
   private cookieError: string = 'cookie/error.txt';
 
 
-  constructor() {
+  constructor(fast: boolean) {
+    this.fast = fast;
     this.rd = readline.createInterface({
-      input: fs.createReadStream(this.readFileName),
+      input: fs.createReadStream(fast ? this.readFileNameFast : this.readFileNameLong),
       console: false
     });
 
@@ -35,6 +38,7 @@ export class CheckCookie {
 
   private async open() {
     this.fileHandle = await fs.openAsync(this.writeFileName, "a+");
+
     this.fileHandleAccess = await fs.openAsync(this.cookieAccess, "a+");
     this.fileHandleInvalid = await fs.openAsync(this.cookieInvalid, "a+");
     this.fileHandleError = await fs.openAsync(this.cookieError, "a+");
@@ -50,7 +54,10 @@ export class CheckCookie {
           await sendKopilkaAnd(delivery, cookies[i]);
         } catch (e) {
         }
-        await sleep(20000);
+
+        if (!this.fast) {
+          await sleep(50000);
+        }
       }
     });
 
@@ -79,4 +86,4 @@ export class CheckCookie {
   }
 }
 
-export const cookieService: CheckCookie = new CheckCookie();
+export const cookieService: CheckCookie = new CheckCookie(false);
