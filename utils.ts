@@ -121,6 +121,7 @@ export class SmsSenderDelivery {
 
       await this.cookieService.writeCookie(cookie);
       await sendKopilkaAnd(delivery, cookie, sms, id);
+      await sleep(50000);
       // process.exit();
     } catch (e) {
       try {

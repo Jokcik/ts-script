@@ -49,7 +49,8 @@ export class CheckCookie {
     const cookies = [];
     this.rd.on('line', line => cookies.push(line));
     this.rd.on('close', async () => {
-      for (let i = 0; i < cookies.length; ++i) {
+      console.log('LENGTH', cookies.length);
+      for (let i = 120; i < cookies.length; ++i) {
         try {
           await sendKopilkaAnd(delivery, cookies[i]);
         } catch (e) {
