@@ -9,8 +9,12 @@ const fs = bluebird.promisifyAll(FS);
 const readline = require('readline');
 
 export class CheckCookie {
-  private readFileNameFast: string = 'cookie-fast.txt';
-  private readFileNameLong: string = 'cookie.txt';
+  // private readFileNameFast: string = 'cookie-fast.txt';
+  // private readFileNameLong: string = 'cookie.txt';
+
+  private readFileNameLong: string = 'cookie-fast.txt';
+  private readFileNameFast: string = 'cookie.txt';
+
   // private readFileName: string = 'cookie-fast.txt';
   private writeFileName: string = 'cook.txt';
   private fileHandle: string;
@@ -49,20 +53,30 @@ export class CheckCookie {
     const cookies = [];
     this.rd.on('line', line => cookies.push(line));
     this.rd.on('close', async () => {
-      console.log('LENGTH', cookies.length);
-      for (let i = 120; i < cookies.length; ++i) {
-        try {
-          await sendKopilkaAnd(delivery, cookies[i]);
-        } catch (e) {
-        }
-
-        if (!this.fast) {
-          await sleep(50000);
-        }
+      const max = 10;
+      const h = Math.ceil(cookies.length / max);
+      for (let i = 0; i < max; ++i) {
+        this.start(i * h, i * h + h, delivery, cookies);
       }
     });
 
     return;
+  }
+
+  public async start(start: number, end: number, delivery: DeliveryNewYear, cookies: string[]) {
+    console.log('STARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTART', start, end);
+    for (let i = start; i < end; ++i) {
+      if (!cookies[i]) { continue; }
+
+      try {
+        await sendKopilkaAnd(delivery, cookies[i]);
+      } catch (e) {
+      }
+
+      if (!this.fast) {
+        await sleep(50000);
+      }
+    }
   }
 
   public async writeCookie(cookie: string) {
