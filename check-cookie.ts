@@ -53,7 +53,7 @@ export class CheckCookie {
     const cookies = [];
     this.rd.on('line', line => cookies.push(line));
     this.rd.on('close', async () => {
-      const max = 10;
+      const max = 20;
       const h = Math.ceil(cookies.length / max);
       for (let i = 0; i < max; ++i) {
         this.start(i * h, i * h + h, delivery, cookies);
