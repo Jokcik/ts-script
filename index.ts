@@ -28,18 +28,18 @@ const argv = opt
     return;
   }
 
-  const sender = new SmsSenderDelivery();
   for (let i = 0; i < 10; ++i) {
-    start(service, sender);
+    start(service);
   }
-  process.exit();
 })();
 
-async function start(service: string, sender: SmsSenderDelivery) {
+async function start(service: string) {
+  const sender = new SmsSenderDelivery();
   for (let i = 0; i < 20000; ++i) {
     console.log(service === 'smsactivate' ? 1 : 0);
     await sender.run(service === 'smsactivate' ? 1 : 0);
   }
+  process.exit();
 }
 
 // (async () => {
