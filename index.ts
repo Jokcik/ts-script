@@ -28,7 +28,7 @@ const argv = opt
     return;
   }
 
-  for (let i = 0; i < 10; ++i) {
+  for (let i = 1; i < 2; ++i) {
     start(service);
   }
 })();
@@ -36,7 +36,8 @@ const argv = opt
 async function start(service: string) {
   const sender = new SmsSenderDelivery();
   for (let i = 0; i < 20000; ++i) {
-    console.log(service === 'smsactivate' ? 1 : 0);
+    console.log(i);
+    await sleep(1000);
     await sender.run(service === 'smsactivate' ? 1 : 0);
   }
   process.exit();
