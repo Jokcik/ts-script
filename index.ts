@@ -3,6 +3,7 @@ import * as opt from 'optimist';
 import {CheckCookie} from "./check-cookie";
 import {SmsSenderDelivery} from "./utils";
 import {sleep} from "./sms-activate";
+import {DeliveryNewYear} from "./delivery-new-year";
 
 (<any>global).fetch = require("node-fetch");
 (<any>global).URLSearchParams = URLSearchParams;
@@ -28,13 +29,18 @@ const argv = opt
   }
 
   const sender = new SmsSenderDelivery();
+  for (let i = 0; i < 10; ++i) {
+    start(service, sender);
+  }
+  process.exit();
+})();
+
+async function start(service: string, sender: SmsSenderDelivery) {
   for (let i = 0; i < 20000; ++i) {
     console.log(service === 'smsactivate' ? 1 : 0);
     await sender.run(service === 'smsactivate' ? 1 : 0);
   }
-
-  process.exit();
-})();
+}
 
 // (async () => {
 //
