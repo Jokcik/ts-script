@@ -1,9 +1,19 @@
 import {URLSearchParams} from 'url';
 import * as opt from 'optimist';
 import {CheckCookie} from "./check-cookie";
-import {SmsSenderDelivery} from "./utils";
+import {SmsSenderDelivery, VK} from "./utils";
 import {sleep} from "./sms-activate";
-import {DeliveryNewYear} from "./delivery-new-year";
+
+const HttpsProxyAgent = require('https-proxy-agent');
+var agent = new HttpsProxyAgent("http://92.39.138.98:31150");
+// var agent = new HttpsProxyAgent("http://78.85.36.203:8080");
+
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
 (<any>global).fetch = require("node-fetch");
 (<any>global).URLSearchParams = URLSearchParams;
@@ -16,21 +26,84 @@ const argv = opt
   .demand(['cookie', 'service'])
   .argv;
 
+function formatNumber(p: string) {
+  // phone: "+7 ( 918 ) 290 - 30 - 65", //9182903065
+  return `+${p[0]} ( ${p[1]+p[2]+p[3]} ) ${p[4]+p[5]+p[6]} - ${p[7]+p[8]} - ${p[9]+p[10]}`;
+}
+
+function fetchRequestInit({ cookie, body, method, json } = <any>{}) {
+  method = method || "POST";
+  json = json === undefined ? true : json;
+  console.log('fetchRequestInit', json ? JSON.stringify(body) : body.get("ksid"));
+  return <any>{
+    agent,
+    headers: {
+      'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 YaBrowser/18.11.1.716 Yowser/2.5 Safari/537.36",
+      'X-Compress': null,
+      cookie,
+    },
+    method,
+    body: json ? JSON.stringify(body) : body,
+    timeout: 10000
+  }
+}
+
+function mergeCookie(cookie1, cookie2) {
+  const split1 = cookie1.split('; ');
+  const split2 = cookie2.split('; ');
+
+  const split: string[] = [...split1, ...split2];
+  return split.join('; ');
+}
+
 (async () => {
-  const isCookie = argv.cookie;
-  const service = argv.service;
-  const fast: boolean = argv.fast === 'true';
 
-  if (isCookie === 'true') {
-    const cookie = new CheckCookie(fast);
-    cookie.run();
 
-    return;
-  }
+  // const cookie = `_ym_uid=1548099959374740671; mda=0; yandexuid=350733461538151571; yandex_gid=4; my=YwA=; fuid01=5c47176627554069.dnIL8puu1uU2MHNavZ8KiWFIQSY1Rz1ZuEGeoqif46hzd4SDJCNM1qAQgsq6FQ2w-ac-A9KSa5Y5OrrfMmDTtVFUdI4-8Bvt1WduklAWpDnAK6AiG8y96_FNVwm8gov3; Session_id=3:1548242167.5.0.1548099963537:jpE-bQ:12.1|82637876.0.2|1130000035889612.82605.2.2:82605|1130000036041961.82617.2.2:82617|193842.971658.-tymKBxn2Kr7QBKkQ1RvSlrH-EY; sessionid2=3:1548242167.5.0.1548099963537:jpE-bQ:12.1|82637876.0.2|1130000035889612.-1.0|1130000036041961.-1.0|193842.390839.AcbiilS_31qo12ppbNBy48HId7s; L=c1x+ckBIVGJ+YVhdVAhqb38AYWsEQQcFGTo8C14i.1548242167.13754.36541.3fedebdbf460d161c9ce29851cd1ce82; yandex_login=jokcik; i=6PO9u9K/2qmCgELYBafA9F24GhMSAtxX3i6u0O/nDK3WV0hHCGay9xEGzUihFQ9CaTlViIzZGGuBpiqobjvDP1Z5xmI=; __utmv=190882677.|2=Account=Yes=1^3=Login=Yes=1; _ym_isad=2; _ym_d=1548345081; yabs-frequency=/4/300001tUILm00000/Rv1oSBWp8TzLi72uCo40/; zm=m-white_bender.webp.css-https%3Awww_oZ9bjgZCpSYDSbXfwmqVS4XbErc%3Al; _ym_visorc_24226447=w; ys=udn.cDpqb2tjaWs%3D#ymrefl.1B028BDD3228FF89#wprid.1548356521808747-712959075890389487972696-sas2-9719; yp=1550948523.shlos.1#1563948050.szm.2:1920x1200:1920x897#1863602167.udn.cDpqb2tjaWs%3D#1863460783.yrtsi.1548100783#1550754916.ygu.1#1549372518.ysl.1#1550841327.csc.1#1863542568.multib.1; yc=1548615734.zen.cach%3A1548259764; _csrf=LNfyYqloDHbVsj-V_kRROpt8; partner_uid=s%3Aa009536f762389d035d8c72407aaafb2.Ih%2FQsniQk5IdxkFge1UPUuF470rpU9WIaD5TA2RiEIs; rheftjdd=rheftjddVal; _ym_visorc_115081=b; afisha.sid=s%3A4OjTl9etmPvFB6AdBW1eLV_pO7iHc1U-.o7x8ptmusHEZzhGR5n1H0lBzByqiav3TVbZ%2BdfMH1J8; device_id="adb59e468a594684dc953cd09d2f3e4c6689d0dea"`;
+  // const headers = {
+  //   'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
+  //   'x-csrf-token': 'Hzo73GST-aiCe-9h6j1aWqbaP6VLylFnZvlU',
+  //   'X-Requested-With': 'XMLHttpRequest',
+  //   'X-Retpath-Y': 'https://afisha.yandex.ru/moscow/concert',
+  //   cookie,
+  // };
+  //
+  // // const urlSearchParams = new URLSearchParams();
+  // // urlSearchParams.append("city", "moscow");
+  // const res = await fetch("https://afisha.yandex.ru/api/subscribe/global?city=moscow", { method: "POST", headers, body: JSON.stringify({ email: "jokcik@gmail.com" }) })
+  // console.log(await res.text());
+  // // const authUrl = "https://goods.ru/api/market/v1/securityService/extraAuthentication/authenticate";
+  // // const keySendUrl = "https://goods.ru/api/market/v1/securityService/extraAuthentication/keySend";
 
-  for (let i = 1; i < 2; ++i) {
-    start(service);
-  }
+
+
+  // "+7 ( 918 ) 290 - 30 - 65"
+  // "+7 ( 988 ) - 35 - 94"
+
+
+  // const urlParams = new URLSearchParams();
+  // urlParams.append("ksid", )
+
+  // const vk = new VK();
+  // for (let i = 0; i < 10000; ++i) {
+  //   await vk.checkAdmin();
+  //   console.log(i + 1);
+  //   await sleep(4000);
+  // }
+  // const isCookie = argv.cookie;
+  // const service = argv.service;
+  // const fast: boolean = argv.fast === 'true';
+  //
+  // if (isCookie === 'true') {
+  //   const cookie = new CheckCookie(fast);
+  //   cookie.run();
+  //
+  //   return;
+  // }
+  //
+  // for (let i = 1; i < 2; ++i) {
+  //   start(service);
+  // }
 })();
 
 async function start(service: string) {

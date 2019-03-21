@@ -89,6 +89,7 @@ export class Honor {
 
       const value2 = await fetch(this.url, { method: "POST", headers: { cookie: this.cookie, 'X-Requested-With': 'XMLHttpRequest' } });
       console.log(await value2.text());
+      process.exit();
     }
 
   }
@@ -103,10 +104,10 @@ export class Honor {
 })();
 
 async function f(honor) {
-  for (let i = 0; i < 1000; ++i) {
+  // for (let i = 0; i < 1000; ++i) {
     await honor.sendCoupon();
-    await sleep(50000);
-  }
+    // await sleep(50000);
+  // }
 }
 
 export function sleep(time) {

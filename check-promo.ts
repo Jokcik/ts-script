@@ -2,7 +2,6 @@ import {URLSearchParams} from "url";
 import {sleep} from "./sms-activate";
 
 (async () => {
-
   let cookie = 'PHPSESSID=jmpp1nmc71eaopat5nj3rfamq4';
   const affraidId = '9221';
   const productId = '303078555';
@@ -62,7 +61,7 @@ import {sleep} from "./sms-activate";
     // "NY19KW3V3ARNN",
     // "NY19SV6NYGWDN",
     // "NY19KRAG4CMYQ",
-    "NY19KZPQ9TZNR",
+    "DTF359XWM89YK",
   ];
 
 

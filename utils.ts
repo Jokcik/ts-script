@@ -54,6 +54,27 @@ export async function sendKopilkaAnd(delivery: DeliveryNewYear, cookie: string, 
   return;
 }
 
+export class VK {
+  constructor() {
+  }
+
+  public async checkAdmin() {
+    // const url = "https://vk.com/id427408928";
+    const url = "https://vk.com/id157600027";
+
+    const response = await fetch(url);
+    const text = await response.text();
+    const regExp = new RegExp("Online");
+    const check = regExp.exec(text);
+
+    if (check) {
+      (await fetch(`http://crierbot.appspot.com/${token}/send?message=${encodeURIComponent("АДМИН НА САЙТЕ")}`));
+      // (await fetch(`http://crierbot.appspot.com/${token}/send?message=${encodeURIComponent("АДМИН НА САЙТЕ")}`));
+      process.exit();
+    }
+
+  }
+}
 
 export class SmsSenderDelivery {
   private cookieService = new CheckCookie(false);

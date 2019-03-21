@@ -3,7 +3,7 @@ import * as SMSActiv from 'node-sms-activate-api';
 // console.log(new SMSActiv('API_KEY'));
 
 export class SmsActivate {
-  private API_KEY = "38A3ccc0cdd208b3e836c962d13e4db6";
+  private API_KEY = "422e1856ddeAA55642dd859Ae3761e3b";
   private smsactivate = new SMSActiv(this.API_KEY);
 
   constructor() {
@@ -14,7 +14,7 @@ export class SmsActivate {
   }
 
   public getOtherNumber() {
-    return this.smsactivate.getNumber('dt');
+    return this.smsactivate.getNumber('ot');
   }
 
   public async getCode(id: string) {

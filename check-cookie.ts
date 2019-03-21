@@ -12,8 +12,8 @@ export class CheckCookie {
   // private readFileNameFast: string = 'cookie-fast.txt';
   // private readFileNameLong: string = 'cookie.txt';
 
-  private readFileNameLong: string = 'cookie-fast.txt';
-  private readFileNameFast: string = 'cookie.txt';
+  private readFileNameLong: string = 'proxylist.txt';
+  private readFileNameFast: string = 'proxylist.txt';
 
   // private readFileName: string = 'cookie-fast.txt';
   private writeFileName: string = 'cook.txt';
@@ -30,7 +30,7 @@ export class CheckCookie {
   private cookieError: string = 'cookie/error.txt';
 
 
-  constructor(fast: boolean) {
+  constructor(fast?: boolean) {
     this.fast = fast;
     this.rd = readline.createInterface({
       input: fs.createReadStream(fast ? this.readFileNameFast : this.readFileNameLong),
@@ -46,6 +46,14 @@ export class CheckCookie {
     this.fileHandleAccess = await fs.openAsync(this.cookieAccess, "a+");
     this.fileHandleInvalid = await fs.openAsync(this.cookieInvalid, "a+");
     this.fileHandleError = await fs.openAsync(this.cookieError, "a+");
+  }
+
+  public async getProxys(): Promise<string[]> {
+    const list = [];
+    return new Promise(((resolve, reject) => {
+      this.rd.on('line', line => list.push(line));
+      this.rd.on('close', () => resolve(list));
+    }));
   }
 
   public run() {
@@ -87,13 +95,13 @@ export class CheckCookie {
   public async write(cookie: string, status: 0 | 1 | -1) {
     switch (status) {
       case -1:
-        await fs.writeAsync(this.fileHandleInvalid, `${cookie}\n`, null, 'ascii');
+        await fs.writeAsync(this.fileHandleInvalid, `${cookie}\n\n`, null, 'ascii');
         break;
       case 0:
-        await fs.writeAsync(this.fileHandleError, `${cookie}\n`, null, 'ascii');
+        await fs.writeAsync(this.fileHandleError, `${cookie}\n\n`, null, 'ascii');
         break;
       case 1:
-        await fs.writeAsync(this.fileHandleAccess, `${cookie}\n`, null, 'ascii');
+        await fs.writeAsync(this.fileHandleAccess, `${cookie}\n\n`, null, 'ascii');
         break;
     }
 
