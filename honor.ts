@@ -1,5 +1,6 @@
 import {URLSearchParams} from "url";
 import * as FormData from 'form-data';
+import {emails} from "./config";
 
 (<any>global).fetch = require("node-fetch");
 (<any>global).URLSearchParams = URLSearchParams;
@@ -100,8 +101,26 @@ export class Honor {
   // await honor.init();
   // await honor.sendDevice();
 
-  f(honor);
+  // f(honor);
+
+  // for(let mail of emails) {
+  for (let i = 0; i < 1; ++i) {
+    func();
+    // sleep(100);
+  }
+
+
+  // }
+
 })();
+
+async function func () {
+  const mail = Math.random().toString(16).substr(2, 8) + "@pismo.store";
+  const params = new URLSearchParams();
+  params.append("email", "jo.kcik@gmail.com");
+  const res = await fetch("https://7worlds.amediateka.ru/es.aspx", {"headers":{"sec-fetch-dest":"empty","sec-fetch-site":"same-origin","sec-fetch-user":"?F","x-requested-with":"XMLHttpRequest"},"referrer":"https://7worlds.amediateka.ru/test","referrerPolicy":"no-referrer-when-downgrade","body":params,"method":"POST","mode":"cors"});
+  console.log(mail, await res.text());
+}
 
 async function f(honor) {
   // for (let i = 0; i < 1000; ++i) {

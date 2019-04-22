@@ -2,8 +2,11 @@
   "name": "ts-script",
   "version": "1.0.0",
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "@types/node-fetch": "^2.1.4",
     "@types/simplesmtp": "^0.3.2",
+    "axios": "^0.18.0",
+    "axios-https-proxy-fix": "^0.17.1",
     "bluebird": "^3.5.3",
     "emailjs-imap-client": "^3.0.7",
     "form-data": "^2.3.3",
@@ -11,16 +14,20 @@
     "https-proxy-agent": "^2.2.1",
     "imap": "^0.8.19",
     "imap-simple": "^4.2.0",
+    "install": "^0.12.2",
+    "jsonwebtoken": "^8.5.1",
     "mailparser": "^2.4.3",
     "msgpack-lite": "^0.1.26",
     "mv": "^2.1.1",
     "node-fetch": "^2.3.0",
     "node-simsms-api": "^0.1.10",
     "node-sms-activate-api": "^0.1.7",
+    "npm": "^6.9.0",
     "optimist": "^0.6.1",
     "puppeteer": "^1.12.2",
     "puppeteer-core": "^1.12.2",
     "quoted-printable": "^1.0.1",
-    "simplesmtp": "^0.3.35"
+    "simplesmtp": "^0.3.35",
+    "tor-axios": "^1.0.7"
   }
 }
