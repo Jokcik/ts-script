@@ -9,15 +9,17 @@ const imap = new Imap("noreply@vtbmail.ru", "qret1234", "yandex");
   await imap.connect();
   functionReadMessages();
 
-  imap.client.onupdate = (path, type, value) => readMessage(value);
+  imap.client.onupdate = (path, type, value) => readMessage(-1, value);
 })();
 
 async function functionReadMessages() {
   const messages = await imap.getMessagesIds();
-  messages.forEach(id => readMessage(id));
+  for (let i = 0; i < messages.length; ++i) {
+    await readMessage(i, messages[i]);
+  }
 }
 
-async function readMessage(messageId: number) {
+async function readMessage(idx: number, messageId: number) {
   const msg = await imap.getMessageById(messageId);
 
   let value = msg['body[]'];
@@ -29,6 +31,6 @@ async function readMessage(messageId: number) {
   const password = email.substr(0, email.indexOf("@"));
   const data = { code, email, password };
 
-  authHeineken(code, email, password);
+  authHeineken(code, email, password, idx);
   // authHeineken("957186342", "jokcik@yandex.ru", "19966991");
 }

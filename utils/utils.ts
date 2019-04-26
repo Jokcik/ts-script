@@ -1,8 +1,11 @@
 import * as FS from 'fs';
 import * as bluebird from 'bluebird';
+import * as minimist from 'minimist';
 
 const fs = bluebird.promisifyAll(FS);
 export class Utils {
+  private args = minimist(process.argv.slice(2));
+
   public sleep(time) {
     return new Promise(resolve => setTimeout(resolve, time));
   }
@@ -30,13 +33,17 @@ export class Utils {
     const prefix = start + Math.random().toString(16).substr(2, 8);
     return { result: prefix + postfix, prefix }
   }
+
+  public getArg(key: string) {
+    return this.args[key];
+  }
   
-  public generatePhoneFormatted(phone: string = "+7 (915) ") {
+  public generatePhoneFormatted(phone: string = "+7 (915) ", seporator = '-') {
     phone += this.randomBetween(0, 9);
     phone += this.randomBetween(0, 9);
-    phone += this.randomBetween(0, 9) + '-';
+    phone += this.randomBetween(0, 9) + seporator;
     phone += this.randomBetween(0, 9);
-    phone += this.randomBetween(0, 9) + '-';
+    phone += this.randomBetween(0, 9) + seporator;
     phone += this.randomBetween(0, 9);
     phone += this.randomBetween(0, 9);
 

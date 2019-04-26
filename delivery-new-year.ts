@@ -28,7 +28,7 @@ export class DeliveryNewYear {
     params.append('c_l', login);
     params.append('c_p', password);
     // let res = await fetch("https://spb.delivery-club.ru/ajax/login/",
-    //   {method: "POST", headers, body: formData});
+    //   {method: "POST", headersSokolov, body: formData});
     return await fetch("https://spb.delivery-club.ru/ajax/login/", {method: 'POST', body: params});
   }
 

@@ -68,7 +68,7 @@ export class CustomRequest {
     return response;
   }
 
-  public async post(url: string, data: Json, config: AxiosRequestConfig = {}, type: BodyType = "json") {
+  public async post(url: string, data: Json, config: AxiosRequestConfig = {}, type: BodyType = "json", saveCookie: boolean = true) {
     config = { ...this.config, ...config };
     config.headers = { cookie: this.cookie, ...this.defaultHeaders, ...config.headers };
 
@@ -84,8 +84,10 @@ export class CustomRequest {
         break;
     }
 
-    const response = await this.inst.post(url, data, config);
-    this.cookie = (response.headers['set-cookie'] || '').join(';');
+    const response = await this.inst.post(url, body, config);
+    if (saveCookie) {
+      this.cookie = (response.headers['set-cookie'] || '').join(';');
+    }
 
     return response;
   }

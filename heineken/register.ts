@@ -4,7 +4,7 @@ import {headers} from "./auth";
 import {ProxyManager} from "../utils/proxy-manager";
 
 const utils = new Utils();
-// request.setDefaultHeaders(headers);
+// request.setDefaultHeaders(headersSokolov);
 
 (async () => {
   const proxy = new ProxyManager();
@@ -56,7 +56,6 @@ async function f(i: number, request: CustomRequest) {
   };
 
   const register = await request.post("https://sharethemoment.ru/member/register/handle", data, {}, "url");
-  // console.log(register.data);
   const location = register.headers['location'];
   if (location.indexOf("?register=1") === -1) { return; }
 
