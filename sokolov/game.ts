@@ -27,8 +27,6 @@ const argv = process.argv;
 
     let emails = utils.readSyncFile("sokolov/auth.txt");
     emails = +count ? emails.slice(offset, count + offset) : emails;
-    console.log(emails);
-    return;
     for (let email of emails) {
       await authSokolov(auth, email, request);
     }
