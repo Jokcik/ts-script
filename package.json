@@ -26,6 +26,7 @@
     "node-sms-activate-api": "^0.1.7",
     "npm": "^6.9.0",
     "optimist": "^0.6.1",
+    "paralleljs": "^0.2.1",
     "puppeteer": "^1.12.2",
     "puppeteer-core": "^1.12.2",
     "quoted-printable": "^1.0.1",

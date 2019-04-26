@@ -37,6 +37,19 @@ export class Utils {
   public getArg(key: string) {
     return this.args[key];
   }
+
+  public parallel(count: number, func: (start: number, end: number) => any, threads: number = 20) {
+    threads = threads > count ? count : threads;
+    const h = Math.ceil(count / threads);
+    for (let i = 0; i < count; ++i) {
+      let start = i * h;
+      let end = start + h - 1;
+      if (end >= count) { end = start; }
+      if (start >= count) { return ; }
+
+      func(start, end);
+    }
+  }
   
   public generatePhoneFormatted(phone: string = "+7 (915) ", seporator = '-') {
     phone += this.randomBetween(0, 9);

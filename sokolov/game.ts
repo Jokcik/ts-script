@@ -9,7 +9,6 @@ const argv = process.argv;
   const request = new CustomRequest({}, true);
   const auth = new AuthSokolov(request);
 
-
   if (utils.getArg("reg")) {
     const count = utils.getArg("count");
     for (let i = 0; i < count; ++i) {
@@ -25,11 +24,24 @@ const argv = process.argv;
     const offset = utils.getArg("offset") || 0;
     const count = utils.getArg("count");
 
-    let emails = utils.readSyncFile("sokolov/auth.txt");
+    let emails = utils.readSyncFile("sokolov/auth.txt").filter(value => !!value);
     emails = +count ? emails.slice(offset, count + offset) : emails;
-    for (let email of emails) {
-      await authSokolov(auth, email, request);
-    }
+    utils.parallel(emails.length, (async (start, end) => {
+      console.log('START', start, end, );
+      const request = new CustomRequest({}, true);
+      const auth = new AuthSokolov(request);
+
+      for (let i = start; i <= end; ++i) {
+        console.log('PARALLEL_START_EMAIL', emails[i]);
+        await authSokolov(auth, emails[i], request);
+      }
+      console.log('END', start, end);
+    }));
+
+    // for (let i = 0; i < emails.length; ++i) {
+    //
+    //
+    // }
   }
 })();
 
@@ -38,7 +50,6 @@ async function register(auth: AuthSokolov) {
   const phone = utils.generatePhoneFormatted("7915", "");
 
   let res = await auth.register(username, phone);
-
   if (res.data.success) {
     console.log(JSON.stringify(res.data));
     utils.appendSyncFile("sokolov/auth.txt", username)
@@ -49,7 +60,12 @@ async function authSokolov(auth: AuthSokolov, email: string, request: CustomRequ
   try {
     await auth.auth(email, "123456");
     for (let i = 0; i < 5; ++i) {
-      await game(i, request);
+      const res = await game(i, request);
+      if (res && res.error) {
+        return console.log('ERROR', email, JSON.stringify(res.error));
+      }
+
+      if (res) { console.log('WIIIIN', email); }
     }
   } catch (e) {
     console.log('GAME ERROR', e.message);
@@ -61,8 +77,9 @@ export async function game(i, request) {
   const params = { ajax: 'Y', start: true };
   const req = await request.post("https://my.sokolov.ru/quest/", params, {}, "url", false);
   const start = req.data;
+  console.log("START_GAME", JSON.stringify(start));
   if (start.error) {
-    return console.log('START', i, start);
+    return start;
   }
 
   let opened = new Map<string, number>();
@@ -73,13 +90,17 @@ export async function game(i, request) {
 
     const cell_id = cellIdNext !== -1 ? cellIdNext : cellId++;
     const params = { ajax: 'Y', cell_id };
-    console.log(params);
+    // console.log(params);
     const result = await request.post("https://my.sokolov.ru/quest/", params, {}, "url", false);
     cellIdNext = -1;
-    console.log(JSON.stringify(result.data));
-    if (result.data.event && result.data.event[0] && result.data.event[0].type === 'win') {
-      console.log('WIIIIIN');
-      return;
+    // console.log(JSON.stringify(result.data));
+    if (result.data.event) {
+      if (result.data.event[0] && result.data.event[0].type === 'win') {
+        console.log('WIIIIIN');
+        return true;
+      }
+      console.log('Что-то пошло не так', JSON.stringify(result.data.event));
+      return false;
     }
 
     const openedReq = result.data.field.opened;
@@ -99,8 +120,8 @@ export async function game(i, request) {
       opened.set(value.code, value.id);
     }
 
-    console.log('size: ' + opened.size);
-    console.log('result: ', cellIdNext, cellId, cell_id, start, i);
+    // console.log('size: ' + opened.size);
+    // console.log('result: ', cellIdNext, cellId, cell_id, start, i);
   }
 
 }
