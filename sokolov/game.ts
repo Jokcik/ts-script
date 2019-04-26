@@ -4,7 +4,6 @@ import {AuthSokolov} from "./auth";
 
 const utils = new Utils();
 const argv = process.argv;
-console.log(argv);
 
 (async () => {
   const request = new CustomRequest({}, true);
@@ -27,7 +26,9 @@ console.log(argv);
     const count = utils.getArg("count");
 
     let emails = utils.readSyncFile("sokolov/auth.txt");
-    emails = emails.slice(offset, count + offset);
+    emails = +count ? emails.slice(offset, count + offset) : emails;
+    console.log(emails);
+    return;
     for (let email of emails) {
       await authSokolov(auth, email, request);
     }
