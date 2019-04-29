@@ -27,15 +27,19 @@ const argv = process.argv;
     let emails = utils.readSyncFile("sokolov/auth.txt").filter(value => !!value);
     emails = +count ? emails.slice(offset, count + offset) : emails;
     utils.parallel(emails.length, (async (start, end) => {
-      console.log('START', start, end, );
+      console.log(new Date(), 'START', start, end, );
       const request = new CustomRequest({}, true);
       const auth = new AuthSokolov(request);
 
       for (let i = start; i <= end; ++i) {
-        console.log('PARALLEL_START_EMAIL', emails[i]);
+        if (start === 0) {
+          await request.torNewSession();
+        }
+
+        console.log(new Date(), 'PARALLEL_START_EMAIL', emails[i]);
         await authSokolov(auth, emails[i], request);
       }
-      console.log('END', start, end);
+      console.log(new Date(), 'END', start, end);
     }));
   }
 })();
