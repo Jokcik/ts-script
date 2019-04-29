@@ -37,11 +37,6 @@ const argv = process.argv;
       }
       console.log('END', start, end);
     }));
-
-    // for (let i = 0; i < emails.length; ++i) {
-    //
-    //
-    // }
   }
 })();
 

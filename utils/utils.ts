@@ -44,7 +44,7 @@ export class Utils {
     for (let i = 0; i < count; ++i) {
       let start = i * h;
       let end = start + h - 1;
-      if (end >= count) { end = start; }
+      if (end >= count) { end = count - 1; }
       if (start >= count) { return ; }
 
       func(start, end);
