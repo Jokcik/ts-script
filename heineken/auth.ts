@@ -13,7 +13,7 @@ export const headers = {
   "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36",
 };
 
-export async function authHeineken(code, email, password, idx) {
+export async function authHeineken(code, email, password, idx, name = '') {
   const request = new CustomRequest({ maxRedirects: 0 });
   const regExp = utils.getRegExpToken();
   request.setDefaultHeaders(headers);
@@ -39,6 +39,6 @@ export async function authHeineken(code, email, password, idx) {
 
   if (!match || !match[1]) { console.log('error'); return; }
 
-  utils.appendSyncFile('heineken/promocodes_ivi.txt', match[1]);
+  utils.appendSyncFile(`heineken/promocodes_${name}_ivi.txt`, match[1]);
   console.log(idx, email, match[1]);
 }

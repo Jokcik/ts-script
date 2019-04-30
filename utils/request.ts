@@ -42,6 +42,8 @@ export class CustomRequest {
         httpAgent: tor.defaults.httpAgent,
         httpsAgent: tor.defaults.httpsAgent,
       });
+
+      setInterval(() => this.torNewSession(), 60 * 1000);
     }
 
     if (proxy) {

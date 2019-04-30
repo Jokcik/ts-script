@@ -38,7 +38,7 @@ async function f(i: number, request: CustomRequest) {
   const regExp = utils.getRegExpToken();
 
   let email = prefix;
-  email += i % 2 ? "@mailrun.ru" : "@sbrmail.ru";
+  email += i % 2 ? "@mailrun.ru" : "@api.mailrun.ru";
 
   const res = await request.get("https://sharethemoment.ru/member/register", { });
   if (!res || res.status !== 200) {
@@ -60,5 +60,5 @@ async function f(i: number, request: CustomRequest) {
   if (location.indexOf("?register=1") === -1) { return; }
 
   const res2 = await request.get(location);
-  console.log(new Date(), 'Письмо отправлено: ', res2.data.indexOf("Для завершения регистрации введите проверочный код, который был отправлен на ваш электронный") > -1);
+  console.log(new Date(), 'Письмо отправлено: ' + email, res2.data.indexOf("Для завершения регистрации введите проверочный код, который был отправлен на ваш электронный") > -1);
 }

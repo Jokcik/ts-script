@@ -9,9 +9,12 @@ const utils = new Utils();
 const arg1 = utils.getArg("email");
 
 let imap;
-if (arg1) {
-  imap = new Imap("noreply@mailrun.ru", "qret1234", "yandex");
-} else {
+let email1;
+if (arg1 === 'mailrun') {
+  email1 = 'mailrun.ru';
+  imap = new Imap("no-reply@mailrun.ru", "qret1234", "yandex");
+} else if (arg1 === 'sbrmail') {
+  email1 = 'sbrmail.ru';
   imap = new Imap("noreply@sbrmail.ru", "qret1234", "yandex");
 }
 
@@ -43,6 +46,6 @@ async function readMessage(idx: number, messageId: number) {
   const password = email.substr(0, email.indexOf("@"));
   const data = { code, email, password };
 
-  authHeineken(code, email, password, idx);
+  await authHeineken(code, email, password, idx, email1);
   // authHeineken("957186342", "jokcik@yandex.ru", "19966991");
 }
