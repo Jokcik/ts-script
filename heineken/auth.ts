@@ -39,6 +39,6 @@ export async function authHeineken(code, email, password, idx) {
 
   if (!match || !match[1]) { console.log('error'); return; }
 
-  utils.appendSyncFile('heineken/promocodes_ivi_2_new.txt', match[1]);
+  utils.appendSyncFile('heineken/promocodes_ivi.txt', match[1]);
   console.log(idx, email, match[1]);
 }

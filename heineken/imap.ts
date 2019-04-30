@@ -17,9 +17,9 @@ if (arg1) {
 
 (async () => {
   await imap.connect();
-  functionReadMessages();
+  await functionReadMessages();
 
-  imap.client.onupdate = (path, type, value) => readMessage(-1, value);
+  // imap.client.onupdate = (path, type, value) => readMessage(-1, value);
 })();
 
 async function functionReadMessages() {
@@ -27,6 +27,8 @@ async function functionReadMessages() {
   for (let i = 0; i < messages.length; ++i) {
     await readMessage(i, messages[i]);
   }
+
+  process.exit();
 }
 
 async function readMessage(idx: number, messageId: number) {
