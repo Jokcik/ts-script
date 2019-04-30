@@ -1,9 +1,19 @@
 import {Imap} from "../utils/imap";
 import {authHeineken} from "./auth";
+import {Utils} from "../utils/utils";
 
 // const imap = new Imap("noreply@malign.ru", "qret1234", "yandex");
 // const imap = new Imap("noreply@mail-box.club", "qret1234", "yandex");
-const imap = new Imap("noreply@vtbmail.ru", "qret1234", "yandex");
+// const imap = new Imap("noreply@vtbmail.ru", "qret1234", "yandex");
+const utils = new Utils();
+const arg1 = utils.getArg("email");
+
+let imap;
+if (arg1) {
+  imap = new Imap("noreply@mailrun.ru", "qret1234", "yandex");
+} else {
+  imap = new Imap("noreply@sbrmail.ru", "qret1234", "yandex");
+}
 
 (async () => {
   await imap.connect();

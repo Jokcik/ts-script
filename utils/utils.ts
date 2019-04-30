@@ -38,7 +38,7 @@ export class Utils {
     return this.args[key];
   }
 
-  public parallel(count: number, func: (start: number, end: number) => any, threads: number = 20) {
+  public parallel(count: number, func: (start: number, end: number, part: number) => any, threads: number = 20) {
     threads = threads > count ? count : threads;
     const h = Math.ceil(count / threads);
     for (let i = 0; i < count; ++i) {
@@ -47,7 +47,7 @@ export class Utils {
       if (end >= count) { end = count - 1; }
       if (start >= count) { return ; }
 
-      func(start, end);
+      func(start, end, i);
     }
   }
   

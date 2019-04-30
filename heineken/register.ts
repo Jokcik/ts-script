@@ -12,7 +12,7 @@ const utils = new Utils();
 })();
 
 async function startRegistration(proxys: string[]) {
-  for (let i = 0; i < 1000; ++i) {
+  for (let i = 0; i < 400; ++i) {
     console.log('startRegistration', i)
 
     try {
@@ -25,20 +25,20 @@ async function startRegistration(proxys: string[]) {
       console.log('ERROR1');
     }
 
-    await utils.sleep(3000);
+    // await utils.sleep(3000);
     await tor.torNewSession();
     // request.clearCookie();
   }
 }
 
-let a = ['абвгдежздийакклмн'];
+let a = 'абвгдежздийакклмн';
 async function f(i: number, request: CustomRequest) {
   let { prefix } = utils.generateRandoms("", "");
   const phone = utils.generatePhoneFormatted();
   const regExp = utils.getRegExpToken();
 
   let email = prefix;
-  email += i % 2 ? "@mail-box.club" : "@vtbmail.ru";
+  email += i % 2 ? "@mailrun.ru" : "@sbrmail.ru";
 
   const res = await request.get("https://sharethemoment.ru/member/register", { });
   if (!res || res.status !== 200) {
