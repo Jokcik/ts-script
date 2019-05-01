@@ -2,6 +2,7 @@ import {URLSearchParams} from "url";
 import {AxiosRequestConfig} from 'axios'
 import axios from 'axios-https-proxy-fix';
 const tor_axios = require('tor-axios');
+const HttpsProxyAgent = require('https-proxy-agent');
 
 export const tor = tor_axios.torSetup({
   ip: 'localhost',
@@ -16,7 +17,7 @@ export class CustomRequest {
   private defaultHeaders: Header = {};
   public cookie: string = '';
   private inst = axios.create({
-    // httpsAgent: new HttpsProxyAgent("https://91.211.245.246:80"),
+    httpAgent: new HttpsProxyAgent("http://176.113.26.66:8080"),
   });
 
   public appendInterseptersRequest(successFunc: (request) => any, errorFunc: (error) => any = error => Promise.reject(error)) {

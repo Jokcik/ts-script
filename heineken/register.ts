@@ -13,10 +13,10 @@ const utils = new Utils();
 
 async function startRegistration(proxys: string[]) {
   for (let i = 0; i < 400; ++i) {
-    console.log('startRegistration', i)
+    console.log('startRegistration', i);
 
     try {
-      const request = new CustomRequest({ maxRedirects: 0 }, true);
+      const request = new CustomRequest({ maxRedirects: 0, timeout: 5000 }, true);
       const res = await request.get("https://api.ipify.org/?format=json").catch(value => null);
       console.log(i, res.data);
       request.clearCookie();
@@ -38,7 +38,8 @@ async function f(i: number, request: CustomRequest) {
   const regExp = utils.getRegExpToken();
 
   let email = prefix;
-  email += i % 2 ? "@mailrun.ru" : "@api.mailrun.ru";
+  // email += i % 2 ? "@mailrun.ru" : "@api.mailrun.ru";
+  email += i % 2 ? "@sbrmail.ru" : "@api.sbrmail.ru";
 
   const res = await request.get("https://sharethemoment.ru/member/register", { });
   if (!res || res.status !== 200) {
