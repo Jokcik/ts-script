@@ -15,7 +15,7 @@ if (arg1 === 'mailrun') {
   imap = new Imap("no-reply@mailrun.ru", "qret1234", "yandex");
 } else if (arg1 === 'sbrmail') {
   email1 = 'sbrmail.ru';
-  imap = new Imap("noreply1@sbrmail.ru", "qret1234", "yandex");
+  imap = new Imap("noreply@sbrmail.ru", "qret1234", "yandex");
 }
 
 (async () => {

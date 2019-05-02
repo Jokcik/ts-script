@@ -39,7 +39,8 @@ async function f(i: number, request: CustomRequest) {
 
   let email = prefix;
   // email += i % 2 ? "@mailrun.ru" : "@api.mailrun.ru";
-  email += i % 2 ? "@sbrmail.ru" : "@api.sbrmail.ru";
+  // email += i % 2 ? "@sbrmail.ru" : "@api.sbrmail.ru";
+  email = "noreply@sbrmail.ru";
 
   const res = await request.get("https://sharethemoment.ru/member/register", { });
   if (!res || res.status !== 200) {
