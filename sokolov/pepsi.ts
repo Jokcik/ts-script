@@ -6,7 +6,7 @@ const utils = new Utils();
 (async () => {
   let request = new CustomRequest();
 
-  utils.parallel(10000, async (start, end, part) => {
+  utils.parallel(100000, async (start, end, part) => {
     for (let i = start; i < end; ++i) {
       try {
         let res = await request.get("https://api.pepsi-football.dev-stage.ru/api/get-extra-promocode");
@@ -18,5 +18,5 @@ const utils = new Utils();
         await request.torNewSession();
       }
 
-    }}, 2)
+    }}, 1)
 })();
