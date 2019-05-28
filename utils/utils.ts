@@ -1,6 +1,7 @@
 import * as FS from 'fs';
 import * as bluebird from 'bluebird';
 import * as minimist from 'minimist';
+import * as tunnel from "tunnel";
 
 const fs = bluebird.promisifyAll(FS);
 export class Utils {
@@ -8,6 +9,16 @@ export class Utils {
 
   public sleep(time) {
     return new Promise(resolve => setTimeout(resolve, time));
+  }
+
+  public getHttpsAgent(proxy: string) {
+    const [ip, port] = proxy.split(':');
+    return tunnel.httpsOverHttp(<any>{
+      proxy: {
+        host: ip,
+        port: +port,
+      },
+    });
   }
 
   public getRegExpToken() {
@@ -23,6 +34,10 @@ export class Utils {
   public appendSyncFile(fileName: string, data: string, newLine: boolean = true) {
     if (newLine) { data += "\n"; }
     return fs.appendFileSync(fileName, data);
+  }
+
+  public saveSyncFile(fileName: string, data: string) {
+    return fs.writeFileSync(fileName, data);
   }
 
   public readSyncFile(fileName: string): string[] {

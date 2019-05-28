@@ -1,13 +1,9 @@
 import {URLSearchParams} from "url";
-import {AxiosRequestConfig} from 'axios'
-import axios from 'axios-https-proxy-fix';
+import axios, {AxiosRequestConfig} from 'axios'
 const tor_axios = require('tor-axios');
-const HttpsProxyAgent = require('https-proxy-agent');
+import * as tunnel from 'tunnel';
 
-export const tor = tor_axios.torSetup({
-  ip: 'localhost',
-  port: 9050,
-});
+export let tor;
 
 type Header = {[key: string]: string};
 type Json = {[key: string]: any};
@@ -16,9 +12,7 @@ type BodyType = 'json' | 'url';
 export class CustomRequest {
   private defaultHeaders: Header = {};
   public cookie: string = '';
-  private inst = axios.create({
-    httpAgent: new HttpsProxyAgent("http://176.113.26.66:8080"),
-  });
+  private inst = axios.create();
 
   public appendInterseptersRequest(successFunc: (request) => any, errorFunc: (error) => any = error => Promise.reject(error)) {
     return this.inst.interceptors.response.use(
@@ -39,18 +33,28 @@ export class CustomRequest {
 
   constructor(private config: AxiosRequestConfig = {}, useTor: boolean = true, proxy: string = '') {
     if (useTor) {
+      tor = tor_axios.torSetup({
+        ip: 'localhost',
+        port: 9050,
+      });
+
       this.inst = axios.create({
         httpAgent: tor.defaults.httpAgent,
         httpsAgent: tor.defaults.httpsAgent,
       });
 
-      setInterval(() => this.torNewSession(), 60 * 1000);
+      setInterval(() => this.torNewSession(), 10 * 1000);
     }
 
     if (proxy) {
       const [ip, port] = proxy.split(':');
       this.inst = axios.create({
-        proxy: { host: ip, port: +port },
+        httpsAgent: tunnel.httpsOverHttp(<any>{
+          proxy: {
+            host: ip,
+            port: +port,
+          },
+        }),
       })
     }
 
@@ -96,6 +100,7 @@ export class CustomRequest {
   }
 
   public async torNewSession() {
+    if (!tor) { return; }
     return await tor.torNewSession();
   }
 
