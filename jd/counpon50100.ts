@@ -39,10 +39,10 @@ let coupons = [
   // let key = "155861415329996g";
   let key = "155861718209077c";
   const startDate = new Date();
-  startDate.setHours(15, 59, 0, 0);
+  startDate.setHours(17, 59, 0, 0);
 
   const date = new Date();
-  date.setHours(16, 0, 0, 0);
+  date.setHours(18, 0, 0, 0);
 
   utils.parallel(coupons.length, (async (start, end, part) => {
     await utils.sleep(+startDate - Date.now());
@@ -59,7 +59,7 @@ let coupons = [
     }
 
     console.log('start', start, requests.length);
-    await utils.sleep(+date - Date.now() - utils.randomBetween(0, 400));
+    await utils.sleep(+date - Date.now() - utils.randomBetween(0, 1500));
     // await utils.sleep(+date - Date.now());
     console.log('end', start, requests.length);
 
@@ -73,7 +73,7 @@ async function getCaptcha(cookie: string, key: string) {
   const request = new CustomRequest({ headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36' } }, true);
   request.cookie = cookie;
 
-  const recaptcha = await jsonp.get(`https://async.joybuy.com/sendCoupon/captcha.html?callback=jQuery172040928108433736465_1558962207434&languageId=3&_=${Date.now()}`);
+  const recaptcha = await jsonp.get(`https://async.joybuy.com/sendCoupon/captcha.html?callback=jQuery17208908459407835316_1559046132370&languageId=3&_=${Date.now()}`);
   const data = recaptcha.data;
 
   const match = data.match(/\({"code":"(.*)","src":"(.*)"}\)/);
@@ -84,7 +84,7 @@ async function getCaptcha(cookie: string, key: string) {
   const code = resultAnticaptcha.solution.text;
 
   const json = {
-    callback: "jQuery172040928108433736465_1558962207434",
+    callback: "jQuery17208908459407835316_1559046132370",
     code: code,
     eid: "EREGJGEKAJYMUPJAYWJ2YGYCGSKFD4UNSB63CPYT45QRL3K3OD7CC45VA6IHEZFHVS5MCL5LKF4JN3Z5E7IWDAX2ZA",
     key: key,
