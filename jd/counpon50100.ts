@@ -59,7 +59,7 @@ let coupons = [
     }
 
     console.log('start', start, requests.length);
-    await utils.sleep(+date - Date.now() - utils.randomBetween(0, 500));
+    await utils.sleep(+date - Date.now() - utils.randomBetween(0, 2000));
     // await utils.sleep(+date - Date.now());
     console.log('end', start, requests.length);
 
@@ -70,7 +70,7 @@ let coupons = [
 })();
 
 async function getCaptcha(cookie: string, key: string) {
-  const request = new CustomRequest({ headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36' } }, false);
+  const request = new CustomRequest({ headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36' } }, true);
   request.cookie = cookie;
 
   const recaptcha = await jsonp.get(`https://async.joybuy.com/sendCoupon/captcha.html?callback=jQuery17208908459407835316_1559046132370&languageId=3&_=${Date.now()}`);
