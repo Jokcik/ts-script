@@ -59,7 +59,7 @@ let coupons = [
     }
 
     console.log('start', start, requests.length);
-    await utils.sleep(+date - Date.now() - utils.randomBetween(0, 800));
+    await utils.sleep(+date - Date.now() - utils.randomBetween(0, 500));
     // await utils.sleep(+date - Date.now());
     console.log('end', start, requests.length);
 
