@@ -39,10 +39,10 @@ let coupons = [
   // let key = "155861415329996g";
   let key = "155861718209077c";
   const startDate = new Date();
-  startDate.setHours(17, 59, 0, 0);
+  startDate.setHours(10, 59, 0, 0);
 
   const date = new Date();
-  date.setHours(18, 0, 0, 0);
+  date.setHours(11, 0, 0, 0);
 
   utils.parallel(coupons.length, (async (start, end, part) => {
     await utils.sleep(+startDate - Date.now());
@@ -59,7 +59,7 @@ let coupons = [
     }
 
     console.log('start', start, requests.length);
-    await utils.sleep(+date - Date.now() - utils.randomBetween(0, 2000));
+    await utils.sleep(+date - Date.now() - utils.randomBetween(0, 3000));
     // await utils.sleep(+date - Date.now());
     console.log('end', start, requests.length);
 
