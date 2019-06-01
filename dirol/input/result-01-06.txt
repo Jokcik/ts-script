@@ -49,7 +49,7 @@ Anton Atyushev exporter2014@inbox.ru. Points: 10
 Наталья Рзянина rzyanina38@gmail.com. Points: 5
 Валентина Воинова voinova55@mail.ru. Points: 0
 Иван Мелик-Гайказов igrasshopper@yandex.ru. Points: 5
-Миша Солодовников misha.solodovnickoff@yandex.ru. Points: 20
+Миша Солодовников misha.solodovnickoff@yandex.ru. Points: 40
 Ирина Игнатьева sira_89@mail.ru. Points: 0
 Андрей Глинских vendya@ya.ru. Points: 0
 ЕЛЕНА СТАРОДУБЦЕВА elen4ka-82@inbox.ru. Points: 55
@@ -60,7 +60,7 @@ Anton Atyushev exporter2014@inbox.ru. Points: 10
 Дима Волгарев dima.volgarev@yandex.ru. Points: 15
 Андрей Давин olga.helen2016@yandex.ru. Points: 0
 EugeneE Heh admin@esklo.ru. Points: 20
-Александр Поваров povar-aleksandr@mail.ru. Points: 110
+Александр Поваров povar-aleksandr@mail.ru. Points: 120
 Татьяна  Кургина  t.curgina@yandex.ru. Points: 0
 Юлия Токарева belka4712@yandex.ru. Points: 0
 Галина Калюлина kalulina@mail.ru. Points: 0
@@ -77,8 +77,8 @@ Anton Aleykin kkek7708@gmail.com. Points: 55
 Алла Джумалиева ideia-a@yandex.ru. Points: 5
 Елена Балакина turionn@rambler.ru. Points: 0
 Елена Федорова storm220906@mail.ru. Points: 0
-Александр Осипков Pancho1666@mail.ru. Points: 100
-Дмитрий Тихонов d.a.tikhonov1996@gmail.com. Points: 45
+Александр Осипков Pancho1666@mail.ru. Points: 250
+Дмитрий Тихонов d.a.tikhonov1996@gmail.com. Points: 55
 Наталья Гадзиева gnatok@mail.ru. Points: 375
 Наталия Бардина rd3agr@mail.ru. Points: 0
 Светлана Полосухина Svetlana-vishn@yandex.ru. Points: 0
@@ -127,13 +127,13 @@ Maria Migita 0950083743masha@gmail.com. Points: 5
 Сергей Истомин neizy22@inbox.ru. Points: 15
 Надежда Домрачева nadu.domracheva1978@gmail.com. Points: 5
 Александр Зарубин sania2186@mail.ru. Points: 10
-Татьяна Понамарчук-Стрельцова strela-6091974@mail.ru. Points: 415
+Татьяна Понамарчук-Стрельцова strela-6091974@mail.ru. Points: 450
 Марина Парфёнова gorgmar@rambler.ru. Points: 0
 Екатерина Фахреева 220685@rambler.ru. Points: 0
 Флюра Терехова Laraterehowa@yandex.ru. Points: 0
 Светлана Савельева sveta-s2302@yandex.ru. Points: 5
 сергей журавлев serg3izhuravl@yandex.ru. Points: 0
-Иван Грозных igroznykh@yandex.ru. Points: 35
+Иван Грозных igroznykh@yandex.ru. Points: 70
 Екатерина Корешкова agentcru@yandex.ru. Points: 30
 Александр Дмитриев dmitriev2alex@mail.ru. Points: 0
 Оксана Королева oksana_yatsun@mail.ru. Points: 40
@@ -157,7 +157,7 @@ Mitya Chekhov mityachekhov@mail.ru. Points: 25
 Вадим Жариков youngdrug0@gmail.com. Points: 10
 Артём Рубин omap8@mail.ru. Points: 5
 Саня Никулин arcaim.com@mail.ru. Points: 0
-Виталий Лень vetal898@ya.ru. Points: 60
+Виталий Лень vetal898@ya.ru. Points: 305
 Дмитрий Куртов Numb.009@yandex.ru. Points: 0
 Евгений Акчурин tauregaer@mail.ru. Points: 90
 Артур Суханов vichka_nikitina_1992@list.ru. Points: 115
@@ -2536,6 +2536,7 @@ Alexander Kalinin spodvizhnik@ya.ru. Points: 10
 Юлия Ефимова YuEfimova83@flashbox.5july.org. Points: 60
 Елена Мишнева MishnevaEl68@flashbox.5july.org. Points: 55
 Валерий Каменев VKamenev70@flashbox.5july.org. Points: 60
+Алиса Ажикелямова AzhikelyamovaAl69@flashbox.5july.org. Points: 50
 Виолетта Курбатова VKurbatova68@flashbox.5july.org. Points: 55
 Владислав Климов KlimovV71@flashbox.5july.org. Points: 60
 Андрей Иванов IvanovAn79@flashbox.5july.org. Points: 65
@@ -2977,7 +2978,6 @@ Alexander Kalinin spodvizhnik@ya.ru. Points: 10
 Берта Будникова BudnikovaB65@mailforspam.com. Points: 0
 Станислав Елисеев Eliseev65@mailforspam.com. Points: 40
 Альберт Калганов AKalganov@mailforspam.com. Points: 35
-Артем Дмитриев ADmitriev74@mailforspam.com. Points: 65
 Геннадий Давыдов DavydovG@mailforspam.com. Points: 50
 Юрий Домашев YuDomashev@mailforspam.com. Points: 30
 Диана Енютина DEnyutina@mailforspam.com. Points: 75
@@ -3023,7 +3023,7 @@ Igor Кривых kiu-igor@mail.ru. Points: 5
 Ирина Шахова irinashakhova77@gmail.com. Points: 0
 Renata Sagadullina renatasagadullina@gmail.com. Points: 25
 Дмитрий Николаевич dima170393@mail.ru. Points: 5
-Андрей Гейнбихнер reevze@mail.ru. Points: 185
+Андрей Гейнбихнер reevze@mail.ru. Points: 210
 Тимофей Хорошун timofejhorosun@gmail.com. Points: 5
 Алексей  Подоплелов  aleksei_podoplelov@mail.ru. Points: 20
 Юлия Прохорова yulia076y@rambler.ru. Points: 50
@@ -3117,7 +3117,6 @@ Evgenyi Ivushkin jordj30@ya.ru. Points: 120
 Екатерина Трофимова ekaterina_golubeva_2014@mail.ru. Points: 20
 Вика Захарова vika.zakharova.1975@inbox.ru. Points: 20
 Любовь Бутовская ButovskayaLV@yandex.ru. Points: 5
-Сергей Чучалин zhmykh1105@yandex.ru. Points: 0
 Артёи Шехонин 79225846137@yandex.ru. Points: 0
 Сергей Азаренко qwertyseer@mail.ru. Points: 70
 Саша Морозов sasha-morozov-68@bk.ru. Points: 15
@@ -3127,7 +3126,7 @@ Evgenyi Ivushkin jordj30@ya.ru. Points: 120
 Сергей Мифтохутдинов 68.mip@mail.ru. Points: 0
 Даша Мирошина dasha-miroshin@yandex.ru. Points: 0
 Сергей  Гейнбихнер bichner@mail.ru. Points: 110
-Екатерина Богданова bogdanovak1978@mail.ru. Points: 305
+Екатерина Богданова bogdanovak1978@mail.ru. Points: 315
 Денис Смагин 9agaetzzggvp@mail.ru. Points: 70
 Алиса Николаева alisa.nikolaeva.9595@bk.ru. Points: 10
 Стас Фомин stas_fomin_1977@bk.ru. Points: 25
@@ -3280,7 +3279,7 @@ danil кучин danil.kuchin.89@mail.ru. Points: 5
 Анжелика Бобрикова ABobrikova@mailforspam.com. Points: 25
 Богдан Костомаров KostomarovB75@mailforspam.com. Points: 10
 Виталий Богров Bogrov61@mailforspam.com. Points: 30
-вера лузина opr19@mail.ru. Points: 15
+вера лузина opr19@mail.ru. Points: 20
 НИНА ПОПОВА ninap@ro.ru. Points: 45
 ирина чикова ira.chikova@ya.ru. Points: 45
 Евгения Кудашова kudachov@mail.ru. Points: 0
@@ -3560,13 +3559,13 @@ Naatly Youtube Chanel ynaatly@mail.ru. Points: 0
 Раиса Волкова volkova.raissa@yandex.ru. Points: 0
 Кристина  Дмитриева kkriis2211@gmail.com. Points: 20
 Инна  innadaur@mail.ru. Points: 5
-Сергей Иноземцев S.in.s.in@mail.ru. Points: 5
+Сергей Иноземцев S.in.s.in@mail.ru. Points: 15
 Вадим Андреев code1981@mail.ru. Points: 0
   maschkovsky.artyom1297@yandex.ru. Points: 20
 Катерина Петрова petrova-ekaterina-2014@mail.ru. Points: 0
 Елена Бегеба begeba.elena24@gmail.com. Points: 0
 Дмитрий Мальцев dima.bi2001@mail.ru. Points: 30
-Юлия Пирожкова Sedowaiulija@yandex.ru. Points: 180
+Юлия Пирожкова Sedowaiulija@yandex.ru. Points: 200
 Anna Koroleva  annkoroleva0505@gmail.com. Points: 0
 Al Reutoff reutoff.a@gmail.com. Points: 40
 Яна Паутова  yana.bokowa@yandex.ru. Points: 0
@@ -3584,3 +3583,16 @@ Al Reutoff reutoff.a@gmail.com. Points: 40
 Анна Конева konevaanna@yandex.ru. Points: 0
 Анастасия Плавская-Маржина marzhina84@mail.ru. Points: 10
 Никита Савин 2revolution@bk.ru. Points: 55
+эльвира базанова amitova.1992@mail.ru. Points: 0
+Галя Захарова zax.gala@mail.ru. Points: 5
+Николай Илюшкин IlyushkinNi@flashbox.5july.org. Points: 0
+Алан Кондратьев AKondratev82@flashbox.5july.org. Points: 5
+Венера Анисимова VAnisimova63@flashbox.5july.org. Points: 5
+Берта Краснопёрова Krasnopyorova76@flashbox.5july.org. Points: 0
+Ефим Мосенцев EMosentsev@flashbox.5july.org. Points: 10
+Любовь Лебедева Lebedeva70@flashbox.5july.org. Points: 5
+Борис Вахрушев BVakhrushev72@flashbox.5july.org. Points: 0
+Яна Мятлева MyatlevaYa@flashbox.5july.org. Points: 0
+Кристина Кручинкина KruchinkinaKr@flashbox.5july.org. Points: 0
+Степан Королёв SKorolyov62@flashbox.5july.org. Points: 0
+Максим Барышев baryshev-ms@rambler.ru. Points: 0
