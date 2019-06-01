@@ -36,6 +36,10 @@ export class Utils {
     return fs.appendFileSync(fileName, data);
   }
 
+  public writeSyncFile(fileName: string, data: string[]) {
+    return fs.writeFileSync(fileName, data.join('\n'));
+  }
+
   public saveSyncFile(fileName: string, data: string) {
     return fs.writeFileSync(fileName, data);
   }
