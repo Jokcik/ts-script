@@ -1,7 +1,7 @@
 import {CustomRequest} from "../utils/request";
 const jwt = require('jsonwebtoken');
-import * as FS from 'fs';
 import {Utils} from "../utils/utils";
+(<any>global).fetch = require("node-fetch");
 
 const utils = new Utils();
 
