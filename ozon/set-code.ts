@@ -34,6 +34,10 @@ const headers: { email: string, password: string }[] = [
   {email: "volyntseva.t@malign.ru", password: "314045"},
   {email: "b63cec12ad4c@malign.ru", password: "812609"},
   {email: "g.uhtomsky@malign.ru", password: "234996"},
+
+  {email: "bpxlxui57@inbox.ru", password: "224720"},
+  {email: "djjxwp131@inbox.ru", password: "767044"},
+  {email: "yzqdjp247@mail.ru", password: "814762"},
 ];
 
 let codes;
@@ -96,7 +100,8 @@ function appendToUses(code: string) {
 
 function getCodes() {
   saveFormatterFileCode();
-  const file: string[] = utils.readSyncFile('dirol/output/OZON 250 рублей-01-06');
+  // const file: string[] = utils.readSyncFile('dirol/output/OZON 250 рублей-01-06');
+  const file: string[] = utils.readSyncFile('dirol/output/OZON 120 рублей-01-06');
   const codes = file.map(value => value.split(' ')[0]);
   return codes;
 }
