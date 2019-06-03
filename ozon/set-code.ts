@@ -6,7 +6,6 @@ const utils = new Utils();
 const request = new CustomRequest();
 
 const headers: { email: string, password: string }[] = [
-  {email: "gfwgt144@mail.ru", password: "457233"},
   {email: "pfzqi164@mail.ru", password: "768345"},
   {email: "kqrqlgy36@mail.ru", password: "193585"},
   {email: "cixqay119@mail.ru ", password: "332408"},
@@ -30,6 +29,7 @@ const headers: { email: string, password: string }[] = [
   {email: "tktbnk198@inbox.ru", password: "766462"},
   {email: "cxlovy29@inbox.ru", password: "235016"},
   {email: "jcxkfj215@inbox.ru", password: "604474"},
+  {email: "gfwgt144@mail.ru", password: "457233"},
 
   {email: "volyntseva.t@malign.ru", password: "314045"},
   {email: "b63cec12ad4c@malign.ru", password: "812609"},
