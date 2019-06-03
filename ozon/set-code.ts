@@ -85,6 +85,7 @@ let codes;
       header = null;
     } if (data.message.indexOf("Вы уже вводили это кодовое слово ранее") > -1) {
       console.log('error', data, data.message.indexOf("Вы уже вводили это кодовое слово ранее") > -1);
+      appendToUses(code);
       header = null;
     } else {
       console.log('error', data, data.message.indexOf("Это кодовое слово уже было активировано другим пользователем") > -1);
