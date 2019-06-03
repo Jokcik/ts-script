@@ -83,6 +83,9 @@ let codes;
     } else if (data.message.indexOf("Исчерпан ежедневный лимит введения кодовых слов") > -1) {
       codeIdx--;
       header = null;
+    } if (data.message.indexOf("Вы уже вводили это кодовое слово ранее") > -1) {
+      console.log('error', data, data.message.indexOf("Вы уже вводили это кодовое слово ранее") > -1);
+      header = null;
     } else {
       console.log('error', data, data.message.indexOf("Это кодовое слово уже было активировано другим пользователем") > -1);
       header = null;
