@@ -3,7 +3,7 @@ import {CustomRequest} from "../utils/request";
 import {saveFormatterFileCode} from "../dirol/global-functions";
 
 const utils = new Utils();
-const request = new CustomRequest({}, false);
+const request = new CustomRequest({}, true);
 
 const headers: { email: string, password: string }[] = [
   {email: "sk8max@yandex.ru", password: "87654321"},
