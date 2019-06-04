@@ -38,7 +38,6 @@ const headers: { email: string, password: string }[] = [
 
   {email: "bpxlxui57@inbox.ru", password: "224720"},
   {email: "djjxwp131@inbox.ru", password: "767044"},
-  {email: "yzqdjp247@mail.ru", password: "814762"},
 ];
 
 let codes;
