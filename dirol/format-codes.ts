@@ -25,6 +25,7 @@ const utils = new Utils();
   sortScore();
 
   if (utils.getArg("format")) {
+    console.log('format');
     saveFormatterFileCode();
   }
 

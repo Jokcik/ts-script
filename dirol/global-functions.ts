@@ -35,7 +35,7 @@ function getFormatCodes(): IFormatCode[] {
   const result: IFormatCode[] = [];
 
   for (let prizeStr of prizes) {
-    const match = prizeStr.match(/ (.*?@.*?)\. Prizes: (.*)/);
+    const match = prizeStr.match(/(.*?@.*?)\. Prizes: (.*)/);
     if (!match) { continue; }
     const prizes: IPrizeDirol[] = JSON.parse(match[2]);
     for (let prize of prizes) {
