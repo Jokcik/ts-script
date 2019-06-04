@@ -23,7 +23,11 @@ const utils = new Utils();
 
 (async () => {
   sortScore();
-  // saveFormatterFileCode();
+
+  if (utils.getArg("format")) {
+    saveFormatterFileCode();
+  }
+
   getOnlyDomains(["@mailforspam.com", "@flashbox.5july.org"]);
 
   process.exit();
