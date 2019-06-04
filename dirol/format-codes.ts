@@ -23,7 +23,7 @@ const utils = new Utils();
 
 (async () => {
   sortScore();
-  saveFormatterFileCode();
+  // saveFormatterFileCode();
 
   process.exit();
 })();

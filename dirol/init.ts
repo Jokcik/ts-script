@@ -34,8 +34,8 @@ async function main(request: CustomRequest, email) {
     let res = await request.get("https://adm.dirolpromo.ru/api/client", { headers: { 'Authorization': token } });
     const json = res.data;
     if (!json.client) { return true }
-    fetch("https://adm.dirolpromo.ru/api/client/prizes", { headers: { 'Authorization': token } }).then(text => text.json())
-      .then(value => utils.appendSyncFile('cookie/resultPrizes2.txt', `${json.client.email}. Prizes: ${JSON.stringify(value)}` + '\n'));
+    // fetch("https://adm.dirolpromo.ru/api/client/prizes", { headers: { 'Authorization': token } }).then(text => text.json())
+    //   .then(value => utils.appendSyncFile('cookie/resultPrizes2.txt', `${json.client.email}. Prizes: ${JSON.stringify(value)}` + '\n'));
 
     console.log(`${json.client.name} ${json.client.surname} ${json.client.email}. Points: ${json.client.points}`);
     utils.appendSyncFile('cookie/result22.txt', `${json.client.name} ${json.client.surname} ${json.client.email}. Points: ${json.client.points}`);

