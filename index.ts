@@ -189,9 +189,9 @@ async function main(request: CustomRequest, email) {
     const json = res.data;
     // console.log('3', json)
     if (!json.client) { return true }
-    // fetch("http://adm.dirolpromo.ru/api/client/prizes", { headers: { 'Authorization': token } }).then(text => text.json())
+    fetch("http://adm.dirolpromo.ru/api/client/prizes", { headers: { 'Authorization': token } }).then(text => text.json())
     //   .then(value => FS.appendFileSync('cookie/resultPrizes2.txt', `${json.client.email}. Prizes: ${JSON.stringify(value)}` + '\n'));
-      // .then(value => console.log(`${json.client.email}. Prizes: ${JSON.stringify(value)}`));
+      .then(value => console.log(`${json.client.email}. Prizes: ${JSON.stringify(value)}`));
 
     console.log(`${json.client.name} ${json.client.surname} ${json.client.email}. Points: ${json.client.points}`);
     // FS.appendFileSync('cookie/result22.txt', `${json.client.name} ${json.client.surname} ${json.client.email}. Points: ${json.client.points}` + '\n');

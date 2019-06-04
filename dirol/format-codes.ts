@@ -24,6 +24,7 @@ const utils = new Utils();
 (async () => {
   sortScore();
   // saveFormatterFileCode();
+  getOnlyDomains(["@mailforspam.com", "@flashbox.5july.org"]);
 
   process.exit();
 })();
@@ -43,3 +44,18 @@ function sortScore() {
 }
 
 
+
+function getOnlyDomains(domains: string[]) {
+  const scores = utils.readSyncFile(scoresFile);
+  let result: any[] = [];
+  for (let score of scores) {
+    const match = score.match(/[ ]+([^ ]+@.*?)\. Points: (.*)/);
+    if (match) {
+      if (domains.every(domain => match[1].indexOf(domain) === -1)) { continue; }
+      result.push({ email: match[1], points: match[2] });
+    }
+  }
+
+  result.sort((a, b) => b.points - a.points);
+  utils.writeSyncFile(`${path}${'output/'}result_domain${date}.txt`, result.map(value => `${value.email} ${value.points}`));
+}
