@@ -3,7 +3,7 @@ import {CustomRequest} from "../utils/request";
 import {saveFormatterFileCode} from "../dirol/global-functions";
 
 const utils = new Utils();
-const request = new CustomRequest({}, true);
+const request = new CustomRequest({}, false);
 
 const headers: { email: string, password: string }[] = [
   {email: "sk8max@yandex.ru", password: "87654321"},
@@ -52,7 +52,7 @@ let codes;
       const body = { userName: headers[i].email, password: headers[i].password, grant_type: "password", client_id: "web", app_version: "browser-ozonshop" };
       const result = await request.post(`https://www.ozon.ru/api/oauth/v1/auth/token`, body, { headers: { authorization: 'Nj4JXpop7kpWPVy8pMtp' } }, "url", false);
       if (result.data && result.data.access_token) {
-        console.log(headers[i], result.data.access_token);
+        // console.log(headers[i], result.data.access_token);
         header = result.data.access_token;
       } else {
         console.log('error', result.data);
@@ -60,37 +60,47 @@ let codes;
       }
     }
 
-    const code = codes[codeIdx++];
-    if (!code) { return; }
+    const result = await request.get("https://www.ozon.ru/my/account", { headers: { authorization: `Bearer ${header}` } });
+    const match = result.data.match(/"balance":(\d+),"/);
 
-    const body = { code };
-    const result = await request.post(`https://www.ozon.ru/api/user/v5/discountCode/${code}`, body, { headers: { authorization: `Bearer ${header}` } }, "json", false);
-    const data: { message: string, code: "OK" | "Error" } = result.data;
-
-    console.log(data.message, code);
-    if (data.code === "OK") {
-      appendToUses(code);
-      i--;
-    } else if (data.message.indexOf("Исчерпан ежедневный лимит") > -1) {
-      codeIdx--;
+    if (match) {
       header = null;
-    } else if (data.message.indexOf("Неправильно введено кодовое слово") > -1) {
-      appendToUses(code);
-      i--;
-    } else if (data.message.indexOf("Это кодовое слово уже было активировано другим пользователем") > -1) {
-      appendToUses(code);
-      i--;
-    } else if (data.message.indexOf("Исчерпан ежедневный лимит введения кодовых слов") > -1) {
-      codeIdx--;
-      header = null;
-    } else if (data.message.indexOf("Вы уже вводили это кодовое слово ранее") > -1) {
-      console.log('error', data, data.message.indexOf("Вы уже вводили это кодовое слово ранее") > -1);
-      appendToUses(code);
-      header = null;
+      console.log(headers[i].email, match[1]);
     } else {
-      console.log('error', data, data.message.indexOf("Это кодовое слово уже было активировано другим пользователем") > -1);
-      header = null;
+      i--;
     }
+
+    // const code = codes[codeIdx++];
+    // if (!code) { return; }
+    //
+    // const body = { code };
+    // const result = await request.post(`https://www.ozon.ru/api/user/v5/discountCode/${code}`, body, { headers: { authorization: `Bearer ${header}` } }, "json", false);
+    // const data: { message: string, code: "OK" | "Error" } = result.data;
+    //
+    // console.log(data.message, code);
+    // if (data.code === "OK") {
+    //   appendToUses(code);
+    //   i--;
+    // } else if (data.message.indexOf("Исчерпан ежедневный лимит") > -1) {
+    //   codeIdx--;
+    //   header = null;
+    // } else if (data.message.indexOf("Неправильно введено кодовое слово") > -1) {
+    //   appendToUses(code);
+    //   i--;
+    // } else if (data.message.indexOf("Это кодовое слово уже было активировано другим пользователем") > -1) {
+    //   appendToUses(code);
+    //   i--;
+    // } else if (data.message.indexOf("Исчерпан ежедневный лимит введения кодовых слов") > -1) {
+    //   codeIdx--;
+    //   header = null;
+    // } else if (data.message.indexOf("Вы уже вводили это кодовое слово ранее") > -1) {
+    //   console.log('error', data, data.message.indexOf("Вы уже вводили это кодовое слово ранее") > -1);
+    //   appendToUses(code);
+    //   header = null;
+    // } else {
+    //   console.log('error', data, data.message.indexOf("Это кодовое слово уже было активировано другим пользователем") > -1);
+    //   header = null;
+    // }
   }
 
 

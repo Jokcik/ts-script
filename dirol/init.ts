@@ -1,19 +1,25 @@
 import {CustomRequest} from "../utils/request";
+
 const jwt = require('jsonwebtoken');
 import {Utils} from "../utils/utils";
+
 (<any>global).fetch = require("node-fetch");
 
 const utils = new Utils();
 
 (async () => {
   const values = {};
+  const emails = utils.readSyncFile('dirol/output/result01-06.txt');
+  const data = emails.map(value => {
+    let match = value.match(/[ ]+([^ ]+@.*?) /);
+    return match[1];
+  });
   const request = new CustomRequest({}, true);
-  const res = await request.get("https://adm.dirolpromo.ru/api/winners?count=100000").catch(value => <any>console.log(value));
-  const data = res.data;
+  // const res = await request.get("https://adm.dirolpromo.ru/api/winners?count=100000").catch(value => <any>console.log(value));
+  // const data = res.data;
 
   for (let value of data) {
-    if (!value.client) { continue; }
-    values[value.client.email] = value.client;
+    values[value] = value;
   }
 
   const keys = Object.keys(values);
@@ -22,7 +28,6 @@ const utils = new Utils();
     if (a) { i--; }
   }
 })();
-
 
 
 async function main(request: CustomRequest, email) {

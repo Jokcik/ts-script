@@ -67,7 +67,7 @@ export class CustomRequest {
 
   public async get(url: string, config: AxiosRequestConfig = {}) {
     config = { ...this.config, ...config };
-    config.headers = { ...this.defaultHeaders, cookie: this.cookie, ...config.headers };
+    config.headers = { ...this.defaultHeaders, ...config.headers };
 
     const response = await this.inst.get(url, config);
     this.cookie = (response.headers['set-cookie'] || []).join(';');
@@ -77,7 +77,7 @@ export class CustomRequest {
 
   public async post(url: string, data: Json, config: AxiosRequestConfig = {}, type: BodyType = "json", saveCookie: boolean = true) {
     config = { ...this.config, ...config };
-    config.headers = { cookie: this.cookie, ...this.defaultHeaders, ...config.headers };
+    config.headers = { ...this.defaultHeaders, ...config.headers };
 
     let body;
     switch (type) {
