@@ -9,9 +9,9 @@ const utils = new Utils();
 
 (async () => {
   const values = {};
-  const emails = utils.readSyncFile('dirol/output/result01-06.txt');
+  const emails = utils.readSyncFile('dirol/output/result_domain01-06.txt');
   const data = emails.map(value => {
-    let match = value.match(/[ ]+([^ ]+@.*?) /);
+    let match = value.match(/([^ ]+@.*?) /);
     return match[1];
   });
   const request = new CustomRequest({}, true);
