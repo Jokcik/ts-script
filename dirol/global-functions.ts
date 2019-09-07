@@ -40,9 +40,12 @@ function getFormatCodes(): IFormatCode[] {
     const prizes: IPrizeDirol[] = JSON.parse(match[2]);
     for (let prize of prizes) {
       if (usesPromocodes.indexOf(prize.code.trim()) > -1) { continue; }
-      if (prize.code == 'DIR9XDLUBU5O') {
-        console.log('code', usesPromocodes);
+      if (match[1].indexOf("flashbox.5july.org") > -1 || match[1].indexOf("mailforspam.com") > -1) {
+        continue;
+        // console.log('code', usesPromocodes);
       }
+
+
       result.push({ email: match[1], prize });
     }
   }

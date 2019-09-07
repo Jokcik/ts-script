@@ -31,6 +31,7 @@ const headers: { email: string, password: string }[] = [
   {email: "cxlovy29@inbox.ru", password: "235016"},
   {email: "jcxkfj215@inbox.ru", password: "604474"},
   {email: "gfwgt144@mail.ru", password: "457233"},
+  {email: "nsqorjc2@inbox.ru", password: "877484"},
 
   {email: "volyntseva.t@malign.ru", password: "314045"},
   {email: "b63cec12ad4c@malign.ru", password: "812609"},
@@ -38,6 +39,12 @@ const headers: { email: string, password: string }[] = [
 
   {email: "bpxlxui57@inbox.ru", password: "224720"},
   {email: "djjxwp131@inbox.ru", password: "767044"},
+  {email: "yzqdjp247@mail.ru", password: "814762"},
+
+  {email: "wxvvt167@mail.ru", password: "R387zRpA"},
+  {email: "spgkp154@mail.ru", password: "LamhNQHZ"},
+  {email: "sansaltire@malign.ru", password: "480402"},
+  {email: "wxvvt132305@malign.ru", password: "qwer12349"},
 ];
 
 let codes;
@@ -50,29 +57,30 @@ let codes;
   let lastI = { idx: -1, count: 0 };
   for (let i = 0; i < headers.length; ++i) {
     if (!header) {
-      const body = { userName: headers[i].email, password: headers[i].password, grant_type: "password", client_id: "web", app_version: "browser-ozonshop" };
-      const result = await request.post(`https://www.ozon.ru/api/oauth/v1/auth/token`, body, { headers: { authorization: 'Zy7YWSSxHEaE7aQsVVvS' } }, "url", false);
+      const body = { userName: headers[i].email, password: headers[i].password, grant_type: "password", client_id: "web", app_version: "browser-ozonshop"};
+      const result = await request.post(`https://www.ozon.ru/api/oauth/v1/auth/token`, body, { headers: { authorization: 'Zy7YWSSxHEaE7aQsVVvS', cookie: 'access_token=GfQg4ub8H0aupDgEevkv; refresh_token=bpsn80hi2_Mu8xZu5P3t85WWMNyGBMEqoNC1Al3o96N0Az7CRmHYVXM3q-go5P3Wfsa9UMoa9b7HL7KM1fjXyd3N5h_isBtmN4HNexfuO3ef2iKWv2q85Pr4ZCS50Ld3e3OYiUnChtdRgOds1Y2fBrBaH8eHu8QMto0gRg_nvXeo7kJNtGLkmfQwbJSdBhYu2BfkB9WaDdmR24d1dXyfujtW1fuDZ67yEb5dEuRkQNnUki4U3FWK_YgcB5XmrTHuhWOjoNvLLDsMbQmOXZtQfwfO2CukcVLJ36usRfFma9SRHbGD1904EomPtZYRzh3kRE8JyYKy2UFH64qrywUl7Spr1EWS01rcXS_ZqwIy5Uwjzguc1Au3EnZlK6KFLkKRUTgtH7IManaag6aoU-HVRS1gE7WJVA7LNemt0IaAmXOhbAdiXhfmkg; token_expiration="2019-07-04T19:08:58.0185597+03:00"; SessionID=qyh4n2ldbzothl50e1hgpmoa; abGroup=4; xcid=914ec0e73b6afe036346048b5d75d607; visid_incap_1101384=H/RJztheS/qA5hKu1uybhfIIHl0AAAAAQUIPAAAAAAAPA2P8q9wvNdIq40DEgF93; nlbi_1101384=FdLRbANoAyPayz3EMHDFYwAAAADDuHZt/3kjTgqkJRozG6xE; incap_ses_799_1101384=OzJSP9Qfbm2kQPTYDp8WC/IIHl0AAAAAXRO5oGoI5xDtBhIS6fI73Q==; browser_pixelRatio=2; browser_network=good; _gcl_au=1.1.35772385.1562249469; _ga=GA1.2.1104183688.1562249472; _gid=GA1.2.71026476.1562249472; _dc_gtm_UA-37420525-1=1; _gat_UA-37420525-1=1; __sonar=8836994243185936424; __exponea_etc__=5a9a2a15-8ef9-4ac8-b6be-0e25b7d94732; __exponea_time2__=-0.03769636154174805; _fbp=fb.1.1562249473233.1610074476; tmr_detect=0%7C1562249473430; criteo_write_test=ChUIBBINbXlHb29nbGVSdGJJZBgBIAE; cto_lwid=03e3bf26-ed3d-4068-a0ac-5fef4d5fa608; flocktory-uuid=8407c308-444a-489a-a8e2-62018dfe266e-8; total_hits=36' } }, "url", false);
       if (result.data && result.data.access_token) {
-        console.log(headers[i], result.data.access_token);
+        // console.log(headers[i], result.data.access_token);
         header = result.data.access_token;
       } else {
         console.log('error', result.data);
+        i--;
         continue;
       }
     }
 
-    // const result = await request.get("https://www.ozon.ru/my/account", { headers: { authorization: `Bearer ${header}`, cookie: 'access_token=T0rZ1z6vH02NS2eUK2Iz; refresh_token=zKaQcUjyZljo-iIb0MW_C2v_rcJbLov4bwHBSw26y4YPnV6vNuh4Iyi_tR3Tqi81_TErNpeRjhn3Sy_4pjoRzLQtRoak7VcBnPgXG7YTzUQNRX2WyGB1Pbp3bXzN5jFZyGsxMzsAUGhhSgYwZy7zAVu0lkzL2RZH-K_A4xFtB8mdMuJf1xANj7oKrb5_FNHN2yS0r3-U9C87PPy4kcd2kNUFPYzBEFSQdNt2WbuU_laxwD6DkTzBnrPFQJRJlwJ0dZwEJTeFG7EtaWav1NofQQMGUVa7kJS-3pbGq1mqFt9DR-PtJFVByv_TtNanlPdEfI07TpZE_p8nFd6J8uYkz4vMm5-ia3YW6Lz4cn_atSI2QncWi8OIMbfqUmi7SLF9o60cFlcdMsxfqdiMeih4AoE1A5d10iDU52bg0ThnNl5RLaMkF-WBgg; token_expiration="2019-06-07T01:09:45.3511327+03:00"; SessionID=aj2cn4yl4c0rvchkq5t415oa; abGroup=28; xcid=72faa14bc3da07ed5803331948f67fb5; visid_incap_1101384=Efou5aU1RkKrsfPFCrSHpZGB+VwAAAAAQUIPAAAAAACYur8GlSbN2YzLiaCf3gM4; nlbi_1101384=VjAIC/mWMwbtGOhZMHDFYwAAAAAxBPQsFACB4ycDBaDkBjGA; incap_ses_377_1101384=zuaRR+sbcwjCPfWnHGA7BZGB+VwAAAAAndOYvtKECAZOLF/HMMPzcQ==; browser_pixelRatio=1; browser_network=good; _gcl_au=1.1.1613441742.1559855509; _ga=GA1.2.1259029105.1559855510; _gid=GA1.2.2018448773.1559855510; _dc_gtm_UA-37420525-1=1; _gat_UA-37420525-1=1; __exponea_etc__=db27b16f-1366-4b59-8b57-8e9a00a70878; __exponea_time2__=-0.0027930736541748047; __sonar=10127853969969343246; _fbp=fb.1.1559855510103.1160659555; flocktory-uuid=8e48875c-5521-4399-80ae-ac5bd152494c-5; cto_lwid=f551b826-17d4-4836-8043-029681597792; criteo_write_test=ChUIBBINbXlHb29nbGVSdGJJZBgBIAE; tmr_detect=0%7C1559855526344; total_hits=17' } });
-    // const match = result.data.match(/"balance":(\d+),"/);
+    // const result = await request.get("https://www.ozon.ru/my/account", { headers: { authorization: `Bearer ${header}`, cookie: 'access_token=GfQg4ub8H0aupDgEevkv; refresh_token=bpsn80hi2_Mu8xZu5P3t85WWMNyGBMEqoNC1Al3o96N0Az7CRmHYVXM3q-go5P3Wfsa9UMoa9b7HL7KM1fjXyd3N5h_isBtmN4HNexfuO3ef2iKWv2q85Pr4ZCS50Ld3e3OYiUnChtdRgOds1Y2fBrBaH8eHu8QMto0gRg_nvXeo7kJNtGLkmfQwbJSdBhYu2BfkB9WaDdmR24d1dXyfujtW1fuDZ67yEb5dEuRkQNnUki4U3FWK_YgcB5XmrTHuhWOjoNvLLDsMbQmOXZtQfwfO2CukcVLJ36usRfFma9SRHbGD1904EomPtZYRzh3kRE8JyYKy2UFH64qrywUl7Spr1EWS01rcXS_ZqwIy5Uwjzguc1Au3EnZlK6KFLkKRUTgtH7IManaag6aoU-HVRS1gE7WJVA7LNemt0IaAmXOhbAdiXhfmkg; token_expiration="2019-07-04T19:08:58.0185597+03:00"; SessionID=qyh4n2ldbzothl50e1hgpmoa; abGroup=4; xcid=914ec0e73b6afe036346048b5d75d607; visid_incap_1101384=H/RJztheS/qA5hKu1uybhfIIHl0AAAAAQUIPAAAAAAAPA2P8q9wvNdIq40DEgF93; nlbi_1101384=FdLRbANoAyPayz3EMHDFYwAAAADDuHZt/3kjTgqkJRozG6xE; incap_ses_799_1101384=OzJSP9Qfbm2kQPTYDp8WC/IIHl0AAAAAXRO5oGoI5xDtBhIS6fI73Q==; browser_pixelRatio=2; browser_network=good; _gcl_au=1.1.35772385.1562249469; _ga=GA1.2.1104183688.1562249472; _gid=GA1.2.71026476.1562249472; _dc_gtm_UA-37420525-1=1; _gat_UA-37420525-1=1; __sonar=8836994243185936424; __exponea_etc__=5a9a2a15-8ef9-4ac8-b6be-0e25b7d94732; __exponea_time2__=-0.03769636154174805; _fbp=fb.1.1562249473233.1610074476; tmr_detect=0%7C1562249473430; criteo_write_test=ChUIBBINbXlHb29nbGVSdGJJZBgBIAE; cto_lwid=03e3bf26-ed3d-4068-a0ac-5fef4d5fa608; flocktory-uuid=8407c308-444a-489a-a8e2-62018dfe266e-8; total_hits=36' } });
+    // const match = result.data.match(/"points":(\d+).*"balance":(\d+),"/);
     //
     // if (match) {
     //   header = null;
-    //   console.log(headers[i].email, match[1]);
+    //   console.log(headers[i].email, `Денег: ${match[2]}. Баллов: ${match[1]}`);
     // } else {
     //   i--;
     // }
 
-    // const code = lastI.count === 1 ? "OZON7D9IL5" : codes[codeIdx++];
-    const code = codes[codeIdx++];
+    // const code = codes[codeIdx++];
+    const code = "SECRET";
     if (!code) { return; }
 
     if (lastI.count === 9) {
@@ -81,10 +89,10 @@ let codes;
     }
 
     const body = { code };
-    const result = await request.post(`https://www.ozon.ru/api/user/v5/discountCode/${code}`, body, { headers: { authorization: `Bearer ${header}` } }, "json", false);
+    const result = await request.post(`https://www.ozon.ru/api/user/v5/discountCode/${code}`, body, { headers: { authorization: `Bearer ${header}`, cookie: 'access_token=GfQg4ub8H0aupDgEevkv; refresh_token=bpsn80hi2_Mu8xZu5P3t85WWMNyGBMEqoNC1Al3o96N0Az7CRmHYVXM3q-go5P3Wfsa9UMoa9b7HL7KM1fjXyd3N5h_isBtmN4HNexfuO3ef2iKWv2q85Pr4ZCS50Ld3e3OYiUnChtdRgOds1Y2fBrBaH8eHu8QMto0gRg_nvXeo7kJNtGLkmfQwbJSdBhYu2BfkB9WaDdmR24d1dXyfujtW1fuDZ67yEb5dEuRkQNnUki4U3FWK_YgcB5XmrTHuhWOjoNvLLDsMbQmOXZtQfwfO2CukcVLJ36usRfFma9SRHbGD1904EomPtZYRzh3kRE8JyYKy2UFH64qrywUl7Spr1EWS01rcXS_ZqwIy5Uwjzguc1Au3EnZlK6KFLkKRUTgtH7IManaag6aoU-HVRS1gE7WJVA7LNemt0IaAmXOhbAdiXhfmkg; token_expiration="2019-07-04T19:08:58.0185597+03:00"; SessionID=qyh4n2ldbzothl50e1hgpmoa; abGroup=4; xcid=914ec0e73b6afe036346048b5d75d607; visid_incap_1101384=H/RJztheS/qA5hKu1uybhfIIHl0AAAAAQUIPAAAAAAAPA2P8q9wvNdIq40DEgF93; nlbi_1101384=FdLRbANoAyPayz3EMHDFYwAAAADDuHZt/3kjTgqkJRozG6xE; incap_ses_799_1101384=OzJSP9Qfbm2kQPTYDp8WC/IIHl0AAAAAXRO5oGoI5xDtBhIS6fI73Q==; browser_pixelRatio=2; browser_network=good; _gcl_au=1.1.35772385.1562249469; _ga=GA1.2.1104183688.1562249472; _gid=GA1.2.71026476.1562249472; _dc_gtm_UA-37420525-1=1; _gat_UA-37420525-1=1; __sonar=8836994243185936424; __exponea_etc__=5a9a2a15-8ef9-4ac8-b6be-0e25b7d94732; __exponea_time2__=-0.03769636154174805; _fbp=fb.1.1562249473233.1610074476; tmr_detect=0%7C1562249473430; criteo_write_test=ChUIBBINbXlHb29nbGVSdGJJZBgBIAE; cto_lwid=03e3bf26-ed3d-4068-a0ac-5fef4d5fa608; flocktory-uuid=8407c308-444a-489a-a8e2-62018dfe266e-8; total_hits=36' } }, "json", false);
     const data: { message: string, code: "OK" | "Error" } = result.data;
 
-    console.log(data.message, code);
+    console.log(data, data.message, code);
     if (data.code === "OK") {
       appendToUses(code);
       i--;
@@ -114,6 +122,11 @@ let codes;
       lastI.count = 0;
     } else {
       lastI.count++;
+    }
+
+    if (lastI.count == 9) {
+      header = null;
+      i++;
     }
   }
 

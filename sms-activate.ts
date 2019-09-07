@@ -17,9 +17,21 @@ export class SmsActivate {
     return this.smsactivate.getNumber('ot');
   }
 
+  public  async getNumber(): Promise<string[]> {
+    const balance = await this.getBalance();
+    console.log('balance');
+    if (balance <= 1) {
+      console.log("Недостаточно бабок");
+      process.exit();
+    }
+
+    const res = await this.getOtherNumber();
+    return [ res.id, res.number.toString() ]
+  }
+
   public async getCode(id: string) {
     try {
-      const timeout = setTimeout(() => this.setStatus(id, -1), 1000 * 60 * 1);
+      const timeout = setTimeout(() => this.setStatus(id, -1), 3000 * 60 * 1);
       const result = await this.smsactivate.getCode(id);
       clearTimeout(timeout);
 

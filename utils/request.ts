@@ -89,11 +89,14 @@ export class CustomRequest {
         Object.keys(data).forEach(key => params.append(key, data[key]));
         body = params;
         break;
+      default:
+        body = data;
     }
 
+    console.log(url, body, config);
     const response = await this.inst.post(url, body, config);
     if (saveCookie) {
-      this.cookie = (response.headers['set-cookie'] || '').join(';');
+      this.cookie = (response.headers['set-cookie'] || []).join(';');
     }
 
     return response;
