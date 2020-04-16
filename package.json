@@ -15,7 +15,7 @@
     "emailjs-imap-client": "^3.0.7",
     "form-data": "^2.3.3",
     "fs": "0.0.1-security",
-    "https-proxy-agent": "^2.2.1",
+    "https-proxy-agent": "^2.2.3",
     "image-to-base64": "^2.0.1",
     "imap": "^0.8.19",
     "imap-simple": "^4.2.0",
